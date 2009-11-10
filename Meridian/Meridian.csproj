@@ -66,6 +66,7 @@
     <Compile Include="Routing\RouteBase.cs" />
     <Compile Include="Routing\RouteCollection.cs" />
     <Compile Include="Routing\RouteData.cs" />
+    <Compile Include="Routing\RouteParser.cs" />
     <Compile Include="Routing\RouteTable.cs" />
     <Compile Include="Routing\RouteValueDictionary.cs" />
     <Compile Include="Strings.Designer.cs">
