@@ -1,20 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
 
 namespace Meridian.Routing
 {
     public class RouteCollection : Collection<RouteBase>
     {
-        private Dictionary<string, RouteBase> _namedMap = new Dictionary<string, RouteBase>();
+        private readonly Dictionary<string, RouteBase> _namedMap = new Dictionary<string, RouteBase>();
 
         public void Add(string name, RouteBase route)
         {
             Requires.NotNull(route, "route");
 
-            base.Add(route);
+            Add(route);
             if (!string.IsNullOrEmpty(name))
             {
                 _namedMap.Add(name, route);
@@ -25,7 +22,7 @@ namespace Meridian.Routing
         {
             Requires.NotNullOrEmpty(url, "url");
 
-//            using (this.GetReadLock())
+  //          using (this.GetReadLock())
   //          {
             foreach (RouteBase route in this)
             {
@@ -35,7 +32,7 @@ namespace Meridian.Routing
                     return routeData;
                 }
             }
-    //        }
+  //        }
             return null;
         }
     }

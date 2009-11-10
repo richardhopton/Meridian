@@ -5,9 +5,9 @@ using System.Globalization;
 
 namespace Meridian
 {
-    public static class Requires
+    internal static class Requires
     {
-        public static void NotNull(object value, string parameterName)
+        internal static void NotNull(object value, string parameterName)
         {
             if (value == null)
             {
@@ -15,7 +15,7 @@ namespace Meridian
             }
         }
 
-        public static void NotNullOrEmpty(string value, string parameterName)
+        internal static void NotNullOrEmpty(string value, string parameterName)
         {
             NotNull(value, parameterName);
 

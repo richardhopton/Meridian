@@ -1,31 +1,17 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Globalization;
 
 namespace Meridian.Routing
 {
     public class RouteData
     {
-        private RouteBase _route = null;
+        public RouteBase Route { get; set; }
 
-        public RouteBase Route
-        {
-            get { return _route; }
-            set { _route = value; }
-        }
-
-        private RouteValueDictionary _values = new RouteValueDictionary();
-
-        public RouteValueDictionary Values
-        {
-            get { return _values; }
-            set { _values = value; }
-        }
+        public RouteValueDictionary Values { get; set; }
 
         public RouteData(RouteBase route)
         {
+            Values = new RouteValueDictionary();
             Route = route;
         }
 
@@ -34,7 +20,7 @@ namespace Meridian.Routing
             Requires.NotNullOrEmpty(valueName, "valueName");
 
             object routeValue;
-            if (this.Values.TryGetValue(valueName, out routeValue))
+            if (Values.TryGetValue(valueName, out routeValue))
             {
                 string str = routeValue as string;
                 if (!string.IsNullOrEmpty(str))

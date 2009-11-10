@@ -120,4 +120,7 @@
   <data name="ArgumentException_EmptyString" xml:space="preserve">
     <value>{0} cannot be an empty string ("").</value>
   </data>
+  <data name="Route_MismatchedParameter" xml:space="preserve">
+    <value>Unable to match parameter {0}.</value>
+  </data>
 </root>

@@ -68,5 +68,14 @@ namespace Meridian {
                 return ResourceManager.GetString("ArgumentException_EmptyString", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Unable to match parameter {0}..
+        /// </summary>
+        internal static string Route_MismatchedParameter {
+            get {
+                return ResourceManager.GetString("Route_MismatchedParameter", resourceCulture);
+            }
+        }
     }
 }
