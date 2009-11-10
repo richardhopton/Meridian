@@ -4,6 +4,14 @@ namespace Meridian
 {
     public class DefaultMvcHandler : IMvcHandler
     {
+        private IControllerFactory _controllerFactory;
+
+        public DefaultMvcHandler(IControllerFactory controllerFactory)
+        {
+            Requires.NotNull(controllerFactory, "controllerFactory");
+            _controllerFactory = controllerFactory;
+        }
+
         //Retrieve
         public void ProcessRequest(string url)
         {            
@@ -12,10 +20,7 @@ namespace Meridian
             if (routeData != null)
             {
                 string controllerName = routeData.GetRequiredString("Controller");
-
-                IControllerFactory factory = new DefaultControllerFactory();
-                IController controller = factory.CreateController(controllerName);
-
+                IController controller = _controllerFactory.CreateController(controllerName);
                 RequestContext context = new RequestContext(routeData);
 
                 controller.Execute(context);
@@ -29,11 +34,8 @@ namespace Meridian
 
             if (routeData != null)
             {
-                string controllerName = routeData.GetRequiredString("Controller");
-
-                IControllerFactory factory = new DefaultControllerFactory();
-                IController controller = factory.CreateController(controllerName);
-
+                string controllerName = routeData.GetRequiredString("Controller");                
+                IController controller = _controllerFactory.CreateController(controllerName);
                 RequestContext context = new RequestContext(routeData);
 
                 if (viewData != null)
