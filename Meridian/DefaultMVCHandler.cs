@@ -6,10 +6,13 @@ namespace Meridian
     {
         private IControllerFactory _controllerFactory;
 
-        public DefaultMvcHandler(IControllerFactory controllerFactory)
+        public DefaultMvcHandler(IControllerFactory controllerFactory, IViewEngine viewEngine)
         {
             Requires.NotNull(controllerFactory, "controllerFactory");
+            Requires.NotNull(viewEngine, "viewEngine");
+
             _controllerFactory = controllerFactory;
+            ViewEngineManager.CurrentEngine = viewEngine;
         }
 
         //Retrieve

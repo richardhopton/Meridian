@@ -47,13 +47,26 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ControllerFactory.cs" />
+    <Compile Include="Frame.xaml.cs">
+      <DependentUpon>Frame.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="IFrame.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="View.cs" />
+    <Compile Include="ViewEngine.cs" />
+    <Compile Include="ViewPage.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Meridian\Meridian.csproj">
       <Project>{2CAF8AF7-E3A2-43D8-A72C-61AE5C0D74A8}</Project>
       <Name>Meridian</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="Frame.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:MarkupCompilePass1</Generator>
+    </Page>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Silverlight\v3.0\Microsoft.Silverlight.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

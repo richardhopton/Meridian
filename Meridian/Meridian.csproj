@@ -50,7 +50,6 @@
     <Compile Include="Controller.cs" />
     <Compile Include="ControllerBase.cs" />
     <Compile Include="ControllerContext.cs" />
-    <Compile Include="DefaultControllerFactory.cs" />
     <Compile Include="IActionInvoker.cs" />
     <Compile Include="IActionResult.cs" />
     <Compile Include="IController.cs" />
@@ -84,6 +83,7 @@
     </Compile>
     <Compile Include="ViewContext.cs" />
     <Compile Include="ViewDataDictionary.cs" />
+    <Compile Include="ViewEngineManager.cs" />
     <Compile Include="ViewResult.cs" />
   </ItemGroup>
   <ItemGroup>
