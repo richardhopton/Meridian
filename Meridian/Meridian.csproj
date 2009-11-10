@@ -46,6 +46,8 @@
     <Reference Include="System.Windows.Browser" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ProcessRequestEventArgs.cs" />
+    <Compile Include="ProcessRequestEventHandler.cs" />
     <Compile Include="DefaultActionInvoker.cs" />
     <Compile Include="Controller.cs" />
     <Compile Include="ControllerBase.cs" />

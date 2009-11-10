@@ -6,6 +6,14 @@ namespace Meridian
     {
         private IControllerFactory _controllerFactory;
 
+        private event ProcessRequestEventHandler _processing;
+
+        public event ProcessRequestEventHandler Processing
+        {
+            add { _processing += value; }
+            remove { _processing -= value; }
+        }
+
         public DefaultMvcHandler(IControllerFactory controllerFactory, IViewEngine viewEngine)
         {
             Requires.NotNull(controllerFactory, "controllerFactory");
@@ -22,11 +30,14 @@ namespace Meridian
 
             if (routeData != null)
             {
-                string controllerName = routeData.GetRequiredString("Controller");
-                IController controller = _controllerFactory.CreateController(controllerName);
-                RequestContext context = new RequestContext(routeData);
+                if (ContinueProcessing(url))
+                {
+                    string controllerName = routeData.GetRequiredString("Controller");
+                    IController controller = _controllerFactory.CreateController(controllerName);
+                    RequestContext context = new RequestContext(routeData);
 
-                controller.Execute(context);
+                    controller.Execute(context);
+                }
             }
         }
 
@@ -37,20 +48,34 @@ namespace Meridian
 
             if (routeData != null)
             {
-                string controllerName = routeData.GetRequiredString("Controller");                
-                IController controller = _controllerFactory.CreateController(controllerName);
-                RequestContext context = new RequestContext(routeData);
-
-                if (viewData != null)
+                if (ContinueProcessing(url))
                 {
-                    foreach (var item in viewData)
-                    {
-                        context.RouteData.Values.Add(item.Key, item.Value);
-                    }
-                }
+                    string controllerName = routeData.GetRequiredString("Controller");
+                    IController controller = _controllerFactory.CreateController(controllerName);
+                    RequestContext context = new RequestContext(routeData);
 
-                controller.Execute(context);
+                    if (viewData != null)
+                    {
+                        foreach (var item in viewData)
+                        {
+                            context.RouteData.Values.Add(item.Key, item.Value);
+                        }
+                    }
+
+                    controller.Execute(context);
+                }
             }
+        }
+
+        private bool ContinueProcessing(string url)
+        {
+            if (_processing != null)
+            {
+                ProcessRequestEventArgs args = new ProcessRequestEventArgs(url, false);
+                _processing(this, args);
+                return !args.Cancel;
+            }
+            return true;
         }
     }
 }
