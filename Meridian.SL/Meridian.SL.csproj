@@ -51,6 +51,7 @@
       <DependentUpon>Frame.xaml</DependentUpon>
     </Compile>
     <Compile Include="IFrame.cs" />
+    <Compile Include="NavigationService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="View.cs" />
     <Compile Include="ViewEngine.cs" />
