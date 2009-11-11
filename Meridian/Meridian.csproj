@@ -73,6 +73,7 @@
     <Compile Include="Routing\Route.cs" />
     <Compile Include="Routing\RouteBase.cs" />
     <Compile Include="Routing\RouteCollection.cs" />
+    <Compile Include="Routing\RouteCollectionExtensions.cs" />
     <Compile Include="Routing\RouteData.cs" />
     <Compile Include="Routing\RouteParser.cs" />
     <Compile Include="Routing\RouteTable.cs" />
