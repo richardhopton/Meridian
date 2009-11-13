@@ -47,6 +47,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AcceptVerbsAttribute.cs" />
+    <Compile Include="AsyncController.cs" />
+    <Compile Include="ActionResultEventArgs.cs" />
+    <Compile Include="IAsyncController.cs" />
     <Compile Include="ProcessRequestEventArgs.cs" />
     <Compile Include="ProcessRequestEventHandler.cs" />
     <Compile Include="DefaultActionInvoker.cs" />

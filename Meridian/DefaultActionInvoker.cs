@@ -18,6 +18,8 @@ namespace Meridian
 {
     public class DefaultActionInvoker : IActionInvoker
     {
+        private readonly Dictionary<IAsyncController, ControllerContext> _contextCache = new Dictionary<IAsyncController, ControllerContext>();
+
         public void InvokeAction(ControllerContext context, string actionName)
         {
             Requires.NotNull(context, "context");
@@ -28,13 +30,40 @@ namespace Meridian
             {
                 ParameterInfo[] parameters = method.GetParameters();
 
-                object[] parameterValues = GetParameterValues(parameters, context.RouteData);
+                object[] parameterValues = GetParameterValues(parameters, context.RouteData);                
 
-                IActionResult actionResult = method.Invoke(context.Controller, parameterValues) as IActionResult;
-
-                if (actionResult != null)
+                IAsyncController asyncController = context.Controller as IAsyncController;
+                if ((asyncController != null)&&(method.ReturnType.Equals(typeof(void))))
                 {
-                    actionResult.Execute(context);
+                    asyncController.ActionCompleted += DefaultActionInvoker_ActionCompleted;
+                    _contextCache.Add(asyncController, context);
+                    method.Invoke(context.Controller, parameterValues);
+                }
+                else
+                {
+                    IActionResult actionResult = method.Invoke(context.Controller, parameterValues) as IActionResult;
+                    if (actionResult != null)
+                    {
+                        actionResult.Execute(context);
+                    }
+                }
+            }
+        }
+
+        private void DefaultActionInvoker_ActionCompleted(object sender, ActionResultEventArgs e)
+        {
+            IAsyncController controller = sender as IAsyncController;
+            if (controller != null)
+            {
+                controller.ActionCompleted -= DefaultActionInvoker_ActionCompleted;            
+                if (e.ActionResult != null)
+                {
+                    ControllerContext context = null;
+                    if (_contextCache.TryGetValue(controller, out context))
+                    {
+                        _contextCache.Remove(controller);
+                        e.ActionResult.Execute(context);
+                    }
                 }
             }
         }
