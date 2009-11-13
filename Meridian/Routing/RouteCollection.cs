@@ -83,10 +83,10 @@ namespace Meridian.Routing
 
         public RouteData GetRouteData(string url)
         {
-            Requires.NotNullOrEmpty(url, "url");
+            Requires.NotNull(url, "url");
 
-  //          using (this.GetReadLock())
-  //          {
+            //using (this.GetReadLock())
+            //{
             foreach (RouteBase route in this)
             {
                 RouteData routeData = route.GetRouteData(url);
@@ -95,7 +95,7 @@ namespace Meridian.Routing
                     return routeData;
                 }
             }
-  //        }
+            //}
             return null;
         }
     }
