@@ -12,7 +12,7 @@
             IView view = ViewEngineManager.CurrentEngine.GetView(ViewName);
             if (view != null)
             {
-                ViewContext viewContext = new ViewContext {ViewData = ViewData};
+                ViewContext viewContext = new ViewContext(ViewData, context.RequestContext.Handler);                
                 view.Render(viewContext);
             }
         }

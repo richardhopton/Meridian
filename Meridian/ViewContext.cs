@@ -14,5 +14,13 @@ namespace Meridian
     public class ViewContext
     {
         public ViewDataDictionary ViewData { get; set; }
+
+        public IMvcHandler Handler { get; set; }
+
+        public ViewContext(ViewDataDictionary viewData, IMvcHandler handler)
+        {
+            ViewData = viewData;
+            Handler = handler;
+        }
     }
 }

@@ -34,7 +34,7 @@ namespace Meridian
                 {
                     string controllerName = routeData.GetRequiredString("Controller");
                     IController controller = _controllerFactory.CreateController(controllerName);
-                    RequestContext context = new RequestContext(routeData);
+                    RequestContext context = new RequestContext(routeData, this);
 
                     controller.Execute(context);
                 }
@@ -52,7 +52,7 @@ namespace Meridian
                 {
                     string controllerName = routeData.GetRequiredString("Controller");
                     IController controller = _controllerFactory.CreateController(controllerName);
-                    RequestContext context = new RequestContext(routeData);
+                    RequestContext context = new RequestContext(routeData, this);
 
                     if (viewData != null)
                     {

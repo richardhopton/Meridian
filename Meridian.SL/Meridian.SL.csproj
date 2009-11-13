@@ -46,7 +46,9 @@
     <Reference Include="System.Windows.Browser" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Commands.cs" />
     <Compile Include="ControllerFactory.cs" />
+    <Compile Include="DelegateCommand.cs" />
     <Compile Include="Frame.xaml.cs">
       <DependentUpon>Frame.xaml</DependentUpon>
     </Compile>

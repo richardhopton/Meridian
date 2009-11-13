@@ -11,11 +11,11 @@ using System.Windows.Shapes;
 
 namespace Meridian.SL
 {
-    public static class NavigationService
+    public class NavigationService
     {
         public static void Navigate(string url)
         {
-            Application.Current.Host.NavigationState = url;
+            Application.Current.Host.NavigationState = url;            
         }
     }
 }

@@ -18,6 +18,7 @@ namespace Meridian.SL
                 if (page is ViewPage)
                 {
                     ((ViewPage) page).ViewData = context.ViewData;
+                    ((ViewPage)page).Handler = context.Handler;
                 }
                 target.Display(page);
             }
