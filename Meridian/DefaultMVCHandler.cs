@@ -25,24 +25,17 @@ namespace Meridian
 
         //Retrieve
         public void ProcessRequest(string url)
-        {            
-            RouteData routeData = RouteTable.Routes.GetRouteData(url);
-
-            if (routeData != null)
-            {
-                if (ContinueProcessing(url))
-                {
-                    string controllerName = routeData.GetRequiredString("Controller");
-                    IController controller = _controllerFactory.CreateController(controllerName);
-                    RequestContext context = new RequestContext(routeData, this);
-
-                    controller.Execute(context);
-                }
-            }
+        {
+            ProcessRequest(url, null, RequestVerbs.Retrieve);
         }
 
         //Submit
         public void ProcessRequest(string url, ViewDataDictionary viewData)
+        {
+            ProcessRequest(url, viewData, RequestVerbs.Submit);
+        }
+        
+        public void ProcessRequest(string url, ViewDataDictionary viewData, string verb)
         {
             RouteData routeData = RouteTable.Routes.GetRouteData(url);
 
@@ -52,8 +45,8 @@ namespace Meridian
                 {
                     string controllerName = routeData.GetRequiredString("Controller");
                     IController controller = _controllerFactory.CreateController(controllerName);
-                    RequestContext context = new RequestContext(routeData, this);
-
+                    RequestContext context = new RequestContext(routeData, this, verb);
+                    
                     if (viewData != null)
                     {
                         foreach (var item in viewData)

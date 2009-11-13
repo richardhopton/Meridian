@@ -14,7 +14,7 @@ namespace Meridian
 {
     public class RequestContext
     {
-        private IMvcHandler _handler = null;
+        private IMvcHandler _handler;
 
         public IMvcHandler Handler
         {
@@ -22,7 +22,7 @@ namespace Meridian
             set { _handler = value; }
         }
 
-        private RouteData _routeData = null;
+        private RouteData _routeData;
 
         public RouteData RouteData
         {
@@ -30,8 +30,17 @@ namespace Meridian
             set { _routeData = value; }
         }
 
-        public RequestContext(RouteData routeData, IMvcHandler handler)
+        private string _verb;
+
+        public string Verb
         {
+            get { return _verb; }
+            set { _verb = value; }
+        }
+
+        public RequestContext(RouteData routeData, IMvcHandler handler, string verb)
+        {
+            _verb = verb;
             _handler = handler;
             _routeData = routeData;
         }

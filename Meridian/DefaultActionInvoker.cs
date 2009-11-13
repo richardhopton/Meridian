@@ -44,19 +44,15 @@ namespace Meridian
             IEnumerable<MethodInfo> methods = context.Controller.GetType().GetMethods().
                 Where(m => m.Name.Equals(actionName, StringComparison.OrdinalIgnoreCase));
 
-            //foreach (var method in methods)
-            //{
-            //    object[] attr = method.GetCustomAttributes(typeof(AcceptVerb), false);
-            //    if (attr.Length > 0)
-            //    {
-            //        if ((attr[0] as AcceptVerb).Verb == context.RequestContext.Verb)
-            //        {
-            //            return method;
-            //        }
-            //    }
-            //}
+            foreach (var method in methods)
+            {
+                if (AcceptVerbsAttribute.IsValidForRequest(context, method))
+                {
+                    return method;
+                }
+            }
             return methods.FirstOrDefault();
-        }
+        }        
 
         private object[] GetParameterValues(ParameterInfo[] parameters, RouteData routeData)
         {

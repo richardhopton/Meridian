@@ -46,6 +46,7 @@
     <Reference Include="System.Windows.Browser" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AcceptVerbsAttribute.cs" />
     <Compile Include="ProcessRequestEventArgs.cs" />
     <Compile Include="ProcessRequestEventHandler.cs" />
     <Compile Include="DefaultActionInvoker.cs" />
@@ -63,6 +64,7 @@
     <Compile Include="DefaultMvcHandler.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RequestContext.cs" />
+    <Compile Include="RequestVerbs.cs" />
     <Compile Include="Requires.cs" />
     <Compile Include="Routing\ContentPathSegment.cs" />
     <Compile Include="Routing\LiteralSubSegment.cs" />
