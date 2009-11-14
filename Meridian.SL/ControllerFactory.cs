@@ -33,7 +33,7 @@ namespace Meridian.SL
                     && (type.Name.EndsWith("Controller"))
                     && (!type.IsAbstract))
                 {
-                    _controllerTypeCache.Add(type.Name, type);
+                    _controllerTypeCache.Add(type.Name.ToUpper(), type);
                 }
             }
         }
@@ -46,9 +46,10 @@ namespace Meridian.SL
             {
                 controllerName += "Controller";
             }
-            if (_controllerTypeCache.ContainsKey(controllerName))
+            Type controllerType;
+            if(_controllerTypeCache.TryGetValue(controllerName.ToUpper(),out controllerType))
             {
-                return Activator.CreateInstance(_controllerTypeCache[controllerName]) as IController;
+                return Activator.CreateInstance(controllerType) as IController;
             }
             else
             {
