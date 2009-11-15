@@ -1,5 +1,6 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
+using Meridian.SL.Navigation;
 
 namespace Meridian.SL
 {
@@ -49,6 +50,12 @@ namespace Meridian.SL
         public void Submit(string url)
         {
             Handler.ProcessRequest(url, ViewData);
+        }
+
+        public string Title
+        {
+            get { return JournalEntry.GetName(this); }
+            set { JournalEntry.SetName(this, value); }
         }
     }
 }
