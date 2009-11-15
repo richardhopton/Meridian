@@ -13,6 +13,6 @@ namespace Meridian
 {
     public interface IActionResult
     {
-        void Execute(ControllerContext context);
+        void Execute(ActionContext context);
     }
 }

@@ -1,14 +1,14 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.ComponentModel;
 using System.Windows;
 using System.Windows.Controls;
-using System;
 using Meridian.SL.Navigation;
 
 namespace Meridian.SL
 {
     public class Frame : ContentControl, IFrame, INavigate
     {
-        private NavigationService _navigationService;
+        private readonly NavigationService _navigationService;
 
         public Frame()
         {
@@ -25,38 +25,36 @@ namespace Meridian.SL
             return true;
         }
 
-        public static readonly DependencyProperty InitialSourceProperty = DependencyProperty.Register("InitialSource", typeof(String), typeof(Frame), new PropertyMetadata(null));
+        public static readonly DependencyProperty InitialSourceProperty =
+            DependencyProperty.Register("InitialSource",
+                                        typeof(String),
+                                        typeof(Frame),
+                                        new PropertyMetadata(null));
 
         public String InitialSource
         {
-            get
-            {
-                return (GetValue(InitialSourceProperty) as String);
-            }
-            set
-            {
-                SetValue(InitialSourceProperty, value);
-            }
+            get { return (GetValue(InitialSourceProperty) as String); }
+            set { SetValue(InitialSourceProperty, value); }
         }
 
         private Boolean _loaded;
         private String _deferredNavigation;
 
-        void Frame_Loaded(object sender, RoutedEventArgs e)
+        private void Frame_Loaded(object sender, RoutedEventArgs e)
         {
-            this._loaded = true;
+            _loaded = true;
             if (!IsInDesignMode())
             {
-                if (!this.ApplyDeepLinks())
+                if (!_navigationService.ApplyDeepLinks())
                 {
                     if (_deferredNavigation != null)
                     {
-                        this.Navigate(_deferredNavigation);
+                        Navigate(_deferredNavigation);
                         _deferredNavigation = null;
                     }
-                    else if (this.InitialSource != null)
+                    else if (InitialSource != null)
                     {
-                        Navigate(this.InitialSource);
+                        Navigate(InitialSource);
                     }
                     else
                     {
@@ -66,24 +64,23 @@ namespace Meridian.SL
             }
         }
 
+        #region IFrame Members
+
         public void Display(UIElement element)
         {
-            this.Content = null;
-            this.Content = element;
+            Content = null;
+            Content = element;
         }
 
-        internal bool ApplyDeepLinks()
-        {
-            return this._navigationService.ApplyDeepLinks();
-        }
+        #endregion
 
         private Boolean Navigate(String url)
         {
-            if (this._loaded)
+            if (_loaded)
             {
-                this._navigationService.Navigate(url);
+                _navigationService.Navigate(url);
             }
-            this._deferredNavigation = url;
+            _deferredNavigation = url;
             return true;
         }
 
@@ -91,7 +88,7 @@ namespace Meridian.SL
 
         public bool Navigate(Uri source)
         {
-            return this.Navigate(source.OriginalString);
+            return Navigate(source.OriginalString);
         }
 
         #endregion

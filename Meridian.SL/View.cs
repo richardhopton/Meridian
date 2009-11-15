@@ -17,8 +17,10 @@ namespace Meridian.SL
                 UserControl page = Activator.CreateInstance(ViewType) as UserControl;
                 if (page is ViewPage)
                 {
-                    ((ViewPage) page).ViewData = context.ViewData;
-                    ((ViewPage)page).Handler = context.Handler;
+                    var viewPage = page as ViewPage;
+                    viewPage.Handler = context.Handler;
+                    viewPage.ViewData = context.ViewData;
+                    viewPage.DataContext = context.ViewData.Model;
                 }
                 target.Display(page);
             }

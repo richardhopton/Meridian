@@ -18,7 +18,7 @@ namespace Meridian
 {
     public class DefaultActionInvoker : IActionInvoker
     {
-        private readonly Dictionary<IAsyncController, ControllerContext> _contextCache = new Dictionary<IAsyncController, ControllerContext>();
+        private readonly Dictionary<IAsyncController, ActionContext> _contextCache = new Dictionary<IAsyncController, ActionContext>();
 
         public void InvokeAction(ControllerContext context, string actionName)
         {
@@ -30,13 +30,14 @@ namespace Meridian
             {
                 ParameterInfo[] parameters = method.GetParameters();
 
-                object[] parameterValues = GetParameterValues(parameters, context.RouteData);                
+                object[] parameterValues = GetParameterValues(parameters, context.RouteData);
 
+                var actionContext = new ActionContext(context, actionName);
                 IAsyncController asyncController = context.Controller as IAsyncController;
                 if ((asyncController != null)&&(method.ReturnType.Equals(typeof(void))))
                 {
                     asyncController.ActionCompleted += DefaultActionInvoker_ActionCompleted;
-                    _contextCache.Add(asyncController, context);
+                    _contextCache.Add(asyncController, actionContext);
                     method.Invoke(context.Controller, parameterValues);
                 }
                 else
@@ -44,7 +45,7 @@ namespace Meridian
                     IActionResult actionResult = method.Invoke(context.Controller, parameterValues) as IActionResult;
                     if (actionResult != null)
                     {
-                        actionResult.Execute(context);
+                        actionResult.Execute(actionContext);
                     }
                 }
             }
@@ -58,7 +59,7 @@ namespace Meridian
                 controller.ActionCompleted -= DefaultActionInvoker_ActionCompleted;            
                 if (e.ActionResult != null)
                 {
-                    ControllerContext context = null;
+                    ActionContext context = null;
                     if (_contextCache.TryGetValue(controller, out context))
                     {
                         _contextCache.Remove(controller);
