@@ -14,6 +14,14 @@ namespace Meridian
 {
     public class RequestContext
     {
+        private string _url;
+
+        public string Url
+        {
+            get { return _url; }
+            set { _url = value; }
+        }
+
         private IMvcHandler _handler;
 
         public IMvcHandler Handler
@@ -38,8 +46,9 @@ namespace Meridian
             set { _verb = value; }
         }
 
-        public RequestContext(RouteData routeData, IMvcHandler handler, string verb)
+        public RequestContext(string url, RouteData routeData, IMvcHandler handler, string verb)
         {
+            _url = url;
             _verb = verb;
             _handler = handler;
             _routeData = routeData;

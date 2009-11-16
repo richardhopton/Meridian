@@ -17,7 +17,7 @@ namespace Meridian
             IView view = ViewEngineManager.CurrentEngine.GetView(ViewName);
             if (view != null)
             {
-                ViewContext viewContext = new ViewContext(ViewData, context.ControllerContext.RequestContext.Handler);                
+                ViewContext viewContext = new ViewContext(context.ControllerContext, ViewData);                
                 view.Render(viewContext);
             }
         }

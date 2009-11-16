@@ -11,16 +11,17 @@ using System.Windows.Shapes;
 
 namespace Meridian
 {
-    public class ViewContext
+    public class ViewContext : ControllerContext
     {
         public ViewDataDictionary ViewData { get; set; }
 
-        public IMvcHandler Handler { get; set; }
-
-        public ViewContext(ViewDataDictionary viewData, IMvcHandler handler)
+        public ViewContext(ControllerContext context, ViewDataDictionary viewData) : 
+            base(context.Controller, context.RequestContext, context.RouteData)
         {
+            Requires.NotNull(context, "context");
+            Requires.NotNull(viewData, "viewData");
+
             ViewData = viewData;
-            Handler = handler;
         }
     }
 }

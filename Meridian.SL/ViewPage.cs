@@ -37,11 +37,6 @@ namespace Meridian.SL
             }
         }
 
-        public ViewPage()
-        {
-            DataContext = this;
-        }
-
         public bool CanSubmit(object parameter)
         {
             return true;
@@ -49,7 +44,7 @@ namespace Meridian.SL
 
         public void Submit(string url)
         {
-            Handler.ProcessRequest(url, ViewData);
+            NavigationService.Default().Navigate(url);
         }
 
         public string Title

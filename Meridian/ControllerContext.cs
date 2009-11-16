@@ -40,6 +40,10 @@ namespace Meridian
 
         public ControllerContext(IController controller, RequestContext requestContext, RouteData routeData)
         {
+            Requires.NotNull(controller, "controller");
+            Requires.NotNull(requestContext, "requestContext");
+            Requires.NotNull(routeData, "routeData");
+
             _controller = controller;
             _requestContext = requestContext;
             _routeData = routeData;

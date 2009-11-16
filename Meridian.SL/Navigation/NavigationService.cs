@@ -1,4 +1,6 @@
 ﻿using System;
+using Meridian.Routing;
+using System.Windows;
 
 namespace Meridian.SL.Navigation
 {
@@ -31,6 +33,28 @@ namespace Meridian.SL.Navigation
             _host = host;
         }
 
+        public static NavigationService For(string name)
+        {
+            Frame frame = UIHelper.FindViewFrame(Application.Current.RootVisual, name) as Frame;
+            return new NavigationService(frame);
+        }
+
+        public static NavigationService For(Frame host)
+        {
+            Requires.NotNull(host, "host");
+            return new NavigationService(host);
+        }
+
+        public static NavigationService Default()
+        {
+            Frame frame = UIHelper.FindViewFrame(Application.Current.RootVisual) as Frame;
+            if (frame != null)
+            {
+                return new NavigationService(frame);
+            }
+            return null;
+        }
+
         internal static Journal Journal
         {
             get { return _journal; }
@@ -46,15 +70,15 @@ namespace Meridian.SL.Navigation
             get { return _journal.CanGoForward; }
         }
 
-        public void Navigate(string url, ViewDataDictionary viewData, String verb)
+        public void Navigate(string url, RequestParameters parameters, String verb)
         {
-            Requires.NotNull(url, "journalEntry");
-            NavigateCore(url, viewData, verb, false);
+            Requires.NotNull(url, "url");
+            NavigateCore(url, parameters, verb, false);
         }
 
-        public void Navigate(string url, ViewDataDictionary viewData)
+        public void Navigate(string url, RequestParameters parameters)
         {
-            Navigate(url, viewData, RequestVerbs.Submit);
+            Navigate(url, parameters, RequestVerbs.Submit);
         }
 
         public void Navigate(string url)
@@ -77,11 +101,12 @@ namespace Meridian.SL.Navigation
             _journal.GoForward();
         }
 
-        private void NavigateCore(String url, ViewDataDictionary viewData,
+        private void NavigateCore(String url, RequestParameters parameters,
                                   String verb, Boolean suppressJournalAdd)
         {
-            _mvcHandler.ProcessRequest(url, viewData, verb);
-            if (!suppressJournalAdd)
+            FrameManager.Add(url, _host);
+            _mvcHandler.ProcessRequest(url, parameters, verb);
+            if (!suppressJournalAdd && (_host.Content != null))
             {
                 String name = JournalEntry.GetName(_host.Content as ViewPage);
                 try

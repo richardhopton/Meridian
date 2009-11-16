@@ -29,6 +29,21 @@ namespace Meridian
             set { _actionInvoker = value; }
         }
 
+        private ViewDataDictionary _viewData;
+
+        public ViewDataDictionary ViewData
+        {
+            get
+            {
+                if (_viewData == null)
+                {
+                    _viewData = new ViewDataDictionary();
+                }
+                return _viewData; 
+            }
+            set { _viewData = value; }
+        }
+
         public ControllerBase()
         {
             _actionInvoker = new DefaultActionInvoker();
