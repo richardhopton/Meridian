@@ -72,6 +72,21 @@ namespace Meridian.SL
             Content = element;
         }
 
+        public string GetContentTitle()
+        {
+            var viewPage = Content as ViewPage;
+            if (viewPage != null)
+            {
+                return viewPage.Title;
+            }
+            return null;
+        }
+
+        NavigationService IFrame.NavigationService
+        {
+            get { return _navigationService; }
+        }
+
         #endregion
 
         private Boolean Navigate(String url)

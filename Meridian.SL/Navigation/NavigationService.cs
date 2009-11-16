@@ -16,10 +16,10 @@ namespace Meridian.SL.Navigation
             _mvcHandler = mvcHandler;
         }
 
-        private readonly Frame _host;
+        private readonly IFrame _host;
         private Boolean _journalIsAddingHistoryPoint;
 
-        public NavigationService(Frame host)
+        public NavigationService(IFrame host)
         {
             if (_mvcHandler == null)
             {
@@ -35,22 +35,22 @@ namespace Meridian.SL.Navigation
 
         public static NavigationService For(string name)
         {
-            Frame frame = UIHelper.FindViewFrame(Application.Current.RootVisual, name) as Frame;
-            return new NavigationService(frame);
+            IFrame frame = UIHelper.FindViewFrame(Application.Current.RootVisual, name) as Frame;
+            return frame.NavigationService;
         }
 
-        public static NavigationService For(Frame host)
+        public static NavigationService For(IFrame host)
         {
             Requires.NotNull(host, "host");
-            return new NavigationService(host);
+            return host.NavigationService;
         }
 
         public static NavigationService Default()
         {
-            Frame frame = UIHelper.FindViewFrame(Application.Current.RootVisual) as Frame;
+            IFrame frame = UIHelper.FindViewFrame(Application.Current.RootVisual) as Frame;
             if (frame != null)
             {
-                return new NavigationService(frame);
+                return frame.NavigationService;
             }
             return null;
         }
@@ -106,9 +106,9 @@ namespace Meridian.SL.Navigation
         {
             FrameManager.Add(url, _host);
             _mvcHandler.ProcessRequest(url, parameters, verb);
-            if (!suppressJournalAdd && (_host.Content != null))
+            if (!suppressJournalAdd)
             {
-                String name = JournalEntry.GetName(_host.Content as ViewPage);
+                String name = _host.GetContentTitle();
                 try
                 {
                     _journalIsAddingHistoryPoint = true;
