@@ -8,7 +8,7 @@ namespace Meridian.SL
 {
     public class ControllerFactory : IControllerFactory
     {
-        private Dictionary<string,Type> _controllerTypeCache = new Dictionary<string, Type>();
+        private Dictionary<string, Type> _controllerTypeCache = new Dictionary<string, Type>(StringComparer.OrdinalIgnoreCase);
 
         public ControllerFactory()
         {
@@ -30,10 +30,10 @@ namespace Meridian.SL
             foreach (var type in assembly.GetTypes())
             {
                 if (typeof(IController).IsAssignableFrom(type)
-                    && (type.Name.EndsWith("Controller"))
+                    && (type.Name.EndsWith("Controller", StringComparison.OrdinalIgnoreCase))
                     && (!type.IsAbstract))
                 {
-                    _controllerTypeCache.Add(type.Name.ToUpper(), type);
+                    _controllerTypeCache.Add(type.Name, type);
                 }
             }
         }
@@ -42,12 +42,12 @@ namespace Meridian.SL
         {
             Requires.NotNullOrEmpty(controllerName, "controllerName");
 
-            if (!controllerName.EndsWith("controller", StringComparison.InvariantCultureIgnoreCase))
+            if (!controllerName.EndsWith("controller", StringComparison.OrdinalIgnoreCase))
             {
                 controllerName += "Controller";
             }
             Type controllerType;
-            if(_controllerTypeCache.TryGetValue(controllerName.ToUpper(),out controllerType))
+            if(_controllerTypeCache.TryGetValue(controllerName,out controllerType))
             {
                 return Activator.CreateInstance(controllerType) as IController;
             }
