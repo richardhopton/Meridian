@@ -41,7 +41,6 @@
     <Reference Include="mscorlib" />
     <Reference Include="system" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Windows.Interactivity, Version=2.0.5.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Net" />
     <Reference Include="System.Windows.Browser" />
@@ -53,15 +52,15 @@
     <Compile Include="Frame.cs" />
     <Compile Include="FrameManager.cs" />
     <Compile Include="IFrame.cs" />
-    <Compile Include="Navigation\NavigateBehaviour.cs" />
     <Compile Include="Navigation\Journal.cs" />
     <Compile Include="Navigation\JournalEntry.cs" />
     <Compile Include="Navigation\JournalEventArgs.cs" />
     <Compile Include="Navigation\NavigationMode.cs" />
     <Compile Include="Navigation\NavigationService.cs" />
-    <Compile Include="Navigation\Parameter.cs" />
-    <Compile Include="Navigation\ParameterCollection.cs" />
+    <Compile Include="Parameter.cs" />
+    <Compile Include="ParameterCollection.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Request.cs" />
     <Compile Include="UIHelper.cs" />
     <Compile Include="View.cs" />
     <Compile Include="ViewEngine.cs" />

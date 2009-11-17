@@ -6,15 +6,15 @@ namespace Meridian.SL
 {
     public class ViewPage : UserControl
     {
-        private DelegateCommand<string> _submitCommand;
+        private DelegateCommand<Request> _submitCommand;
 
-        public DelegateCommand<string> SubmitCommand
+        public DelegateCommand<Request> SubmitCommand
         {
             get
             {
                 if (_submitCommand == null)
                 {
-                    _submitCommand = new DelegateCommand<string>(Submit, CanSubmit);
+                    _submitCommand = new DelegateCommand<Request>(Submit, CanSubmit);
                 }
                 return _submitCommand;
             }
@@ -42,9 +42,9 @@ namespace Meridian.SL
             return true;
         }
 
-        public void Submit(string url)
+        public void Submit(Request request)
         {
-            NavigationService.Default().Navigate(url);
+            NavigationService.Default().Navigate(request.Url, request.Parameters.ToRequestParameters(), RequestVerbs.Submit);
         }
 
         public string Title
