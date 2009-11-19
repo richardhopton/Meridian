@@ -36,7 +36,7 @@ namespace Meridian.Routing
                 }
                 else
                 {
-                    ContentPathSegment contentPathSegment = segment as ContentPathSegment;
+                    var contentPathSegment = segment as ContentPathSegment;
                     if (contentPathSegment != null)
                     {
                         if (!MatchContentPathSegment(contentPathSegment, subString, defaultValues, matchedValues))
@@ -69,14 +69,14 @@ namespace Meridian.Routing
             return matchedValues;
         }
 
-        private bool MatchContentPathSegment(ContentPathSegment routeSegment, string requestPathSegment, IDictionary<string, object> defaultValues, IDictionary<string, object> matchedValues)
+        private static bool MatchContentPathSegment(ContentPathSegment routeSegment, string requestPathSegment, IDictionary<string, object> defaultValues, IDictionary<string, object> matchedValues)
         {
             if (string.IsNullOrEmpty(requestPathSegment))
             {
                 if (routeSegment.SubSegments.Count <= 1)
                 {
                     object segmentValue;
-                    ParameterSubSegment subsegment = routeSegment.SubSegments[0] as ParameterSubSegment;
+                    var subsegment = routeSegment.SubSegments[0] as ParameterSubSegment;
                     if (subsegment == null)
                     {
                         return false;
@@ -91,48 +91,44 @@ namespace Meridian.Routing
             }
             int length = requestPathSegment.Length;
             int subsegmentIndex = routeSegment.SubSegments.Count - 1;
-            ParameterSubSegment parameterSubSegment;
-            LiteralSubSegment literalSubSegment;
+            ParameterSubSegment parameterSubSegment = null;
             while (subsegmentIndex >= 0)
             {
                 int segmentLength = length;
-
-                parameterSubSegment = routeSegment.SubSegments[subsegmentIndex] as ParameterSubSegment;
-                literalSubSegment = routeSegment.SubSegments[subsegmentIndex] as LiteralSubSegment;
-                if (literalSubSegment != null)
+                PathSubSegment pathSubSegment = routeSegment.SubSegments[subsegmentIndex];
+                LiteralSubSegment literalSubSegment = null;
+                if (pathSubSegment is ParameterSubSegment)
                 {
-                    int endIndex = requestPathSegment.LastIndexOf(literalSubSegment.Literal, length - 1, StringComparison.OrdinalIgnoreCase);
-                    if (endIndex == -1)
+                    parameterSubSegment = pathSubSegment as ParameterSubSegment;
+                }
+                else
+                {
+                    literalSubSegment = pathSubSegment as LiteralSubSegment;
+                    if (literalSubSegment != null)
                     {
-                        return false;
+                        int endIndex = requestPathSegment.LastIndexOf(literalSubSegment.Literal, length - 1,
+                                                                      StringComparison.OrdinalIgnoreCase);
+                        if (endIndex == -1)
+                        {
+                            return false;
+                        }
+                        if ((subsegmentIndex == (routeSegment.SubSegments.Count - 1)) &&
+                            ((endIndex + literalSubSegment.Literal.Length) != requestPathSegment.Length))
+                        {
+                            return false;
+                        }
+                        segmentLength = endIndex;
                     }
-                    if ((subsegmentIndex == (routeSegment.SubSegments.Count - 1)) &&
-                        ((endIndex + literalSubSegment.Literal.Length) != requestPathSegment.Length))
-                    {
-                        return false;
-                    }
-                    segmentLength = endIndex;
                 }
                 if ((parameterSubSegment != null) && ((literalSubSegment != null) || (subsegmentIndex == 0)))
                 {
-                    int startIndex;
-                    int endIndex;
-                    if (literalSubSegment == null)
-                    {
-                        startIndex = subsegmentIndex == 0 ? 0 : segmentLength;
-                        endIndex = length;
-                    }
-                    else if (subsegmentIndex == 0)
-                    {
-                        startIndex = 0;
-                        endIndex = length;
-                    }
-                    else
+                    int startIndex = 0;
+                    int endIndex = length;
+                    if (literalSubSegment != null)
                     {
                         startIndex = segmentLength + literalSubSegment.Literal.Length;
-                        endIndex = length - startIndex;
                     }
-                    string str = requestPathSegment.Substring(startIndex, endIndex);
+                    string str = requestPathSegment.Substring(startIndex, endIndex-startIndex);
                     if (string.IsNullOrEmpty(str))
                     {
                         return false;
