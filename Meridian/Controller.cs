@@ -31,22 +31,12 @@
 
         protected internal ViewResult View(string viewName, object model)
         {
-            ViewDataDictionary viewData = null;
             if (model != null)
             {
-                viewData = new ViewDataDictionary {Model = model};
+                ViewData.Model = model;
             }
 
-            return View(viewName, viewData);
-        }
-
-        protected internal ViewResult View(string viewName, ViewDataDictionary viewData)
-        {
-            return new ViewResult
-            {
-                ViewName = viewName,
-                ViewData = viewData,
-            };
+            return View(viewName, ViewData);
         }
     }
 }
