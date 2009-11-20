@@ -4,7 +4,19 @@ namespace Meridian
 {
     public class ViewResult : IActionResult
     {
-        public ViewDataDictionary ViewData { get; set; }
+        private ViewDataDictionary _viewData; 
+
+        public ViewDataDictionary ViewData
+        {
+            get
+            {
+                if (_viewData == null)
+                    _viewData = new ViewDataDictionary();
+                return _viewData;
+            }
+            set { _viewData = value; }
+        }
+
         public string ViewName { get; set; }
 
         public void Execute(ActionContext context)
