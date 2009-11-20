@@ -12,16 +12,11 @@ using System.Windows.Shapes;
 namespace Meridian.SL
 {
     public class Parameter : FrameworkElement
-    {
+    {       
         public string ParameterName { get; set; }
 
-        public object Value
-        {
-            get { return (object)GetValue(ValueProperty); }
-            set { SetValue(ValueProperty, value); }
-        }
-      
-        public static readonly DependencyProperty ValueProperty = 
-            DependencyProperty.Register("Value", typeof(object), typeof(Parameter), new PropertyMetadata(null));
+        public string ElementName { get; set; }
+
+        public string Path { get; set; }
     }
 }

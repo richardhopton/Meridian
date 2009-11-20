@@ -1,6 +1,10 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Data;
+using System.Windows.Media;
 using Meridian.SL.Navigation;
+using System.Collections.ObjectModel;
+using System.Windows.Controls.Primitives;
 
 namespace Meridian.SL
 {
@@ -44,7 +48,12 @@ namespace Meridian.SL
 
         public void Submit(Request request)
         {
-            NavigationService.Default().Navigate(request.Url, request.Parameters.ToRequestParameters(), RequestVerbs.Submit);
+            if (request != null)
+            {
+                NavigationService.Default().Navigate(request.Url, 
+                    request.Parameters.ToRequestParameters(this),
+                    RequestVerbs.Submit);
+            }
         }
 
         public string Title

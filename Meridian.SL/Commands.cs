@@ -2,6 +2,8 @@
 using System.Windows;
 using System.Windows.Controls.Primitives;
 using System.Windows.Input;
+using System.Windows.Controls;
+using System.Windows.Media;
 
 namespace Meridian.SL
 {
@@ -25,7 +27,6 @@ namespace Meridian.SL
             buttonBase.SetValue(CommandProperty, value);
         }
 
-
         public static readonly DependencyProperty CommandParameterProperty =
             DependencyProperty.RegisterAttached("CommandParameter", typeof(object), typeof(Commands),
             null);
@@ -37,12 +38,12 @@ namespace Meridian.SL
 
         public static void SetCommandParameter(ButtonBase buttonBase, object value)
         {
-            buttonBase.SetValue(CommandParameterProperty, value);
+            buttonBase.SetValue(CommandParameterProperty, value);                           
         }
 
         private static void CommandPropertyChanged(DependencyObject o, DependencyPropertyChangedEventArgs e)
         {
-            ButtonBase element = o as ButtonBase;
+            var element = o as ButtonBase;
             if (element != null)
             {
                 if (e.OldValue != null)
@@ -58,14 +59,14 @@ namespace Meridian.SL
 
         private static void HookCommand(ButtonBase element, ICommand command)
         {
-            CommandButtonBehavior behavior = new CommandButtonBehavior(element, command);
+            var behavior = new CommandButtonBehavior(element, command);
             behavior.Attach();
             element.SetValue(CommandButtonBehaviorProperty, behavior);
         }
 
         private static void UnhookCommand(ButtonBase element, ICommand command)
         {
-            CommandButtonBehavior behavior = (CommandButtonBehavior)element.GetValue(CommandButtonBehaviorProperty);
+            var behavior = (CommandButtonBehavior)element.GetValue(CommandButtonBehaviorProperty);
             behavior.Dettach();
             element.ClearValue(CommandButtonBehaviorProperty);
         }
