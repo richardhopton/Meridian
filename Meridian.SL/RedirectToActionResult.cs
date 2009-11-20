@@ -15,6 +15,11 @@ namespace Meridian.SL
     {
         public string Url { get; set; }
 
+        public RedirectToActionResult(string url)
+        {
+            Url = url;
+        }
+
         public void Execute(ActionContext context)
         {
             //Possibly need to think about how we handle a redirect to action with multiple frames

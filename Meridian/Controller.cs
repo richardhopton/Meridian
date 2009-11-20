@@ -21,7 +21,7 @@
 
         protected internal ViewResult View(ViewDataDictionary viewData)
         {
-            return View(null /* viewName */, viewData);
+            return ViewCore(null /* viewName */, viewData);
         }
 
         protected internal ViewResult View(string viewName)
@@ -35,8 +35,12 @@
             {
                 ViewData.Model = model;
             }
-
-            return View(viewName, ViewData);
+            return ViewCore(viewName, ViewData);
+        }
+        
+        private internal static ViewResult ViewCore(string viewName, ViewDataDictionary viewData)
+        {
+            return new ViewResult() {ViewData = viewData, ViewName = viewName};            
         }
     }
 }

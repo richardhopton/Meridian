@@ -47,6 +47,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Commands.cs" />
+    <Compile Include="ControllerExtensions.cs" />
     <Compile Include="ControllerFactory.cs" />
     <Compile Include="DelegateCommand.cs" />
     <Compile Include="Frame.cs" />
