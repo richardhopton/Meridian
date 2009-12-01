@@ -1,28 +1,23 @@
-﻿using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Media;
+﻿using System.Windows.Controls;
 using Meridian.SL.Navigation;
-using System.Collections.ObjectModel;
-using System.Windows.Controls.Primitives;
 
 namespace Meridian.SL
 {
     public class ViewPage : UserControl
     {
-        private DelegateCommand<Request> _submitCommand;
+        private DelegateCommand<Request> _handleRequestCommand;
 
-        public DelegateCommand<Request> SubmitCommand
+        public DelegateCommand<Request> HandleRequestCommand
         {
             get
             {
-                if (_submitCommand == null)
+                if (_handleRequestCommand == null)
                 {
-                    _submitCommand = new DelegateCommand<Request>(Submit, CanSubmit);
+                    _handleRequestCommand = new DelegateCommand<Request>(Handle, CanHandle);
                 }
-                return _submitCommand;
+                return _handleRequestCommand;
             }
-            set { _submitCommand = value; }
+            set { _handleRequestCommand = value; }
         }
 
         public IMvcHandler Handler { get; set; }
@@ -41,18 +36,28 @@ namespace Meridian.SL
             }
         }
 
-        public bool CanSubmit(object parameter)
+        private bool CanHandle(object parameter)
         {
             return true;
         }
 
-        public void Submit(Request request)
+        private void Handle(Request request)
         {
             if (request != null)
             {
-                NavigationService.Default().Navigate(request.Url, 
-                    request.Parameters.ToRequestParameters(this),
-                    RequestVerbs.Submit);
+                string verb = string.IsNullOrEmpty(request.Verb) ? RequestVerbs.Submit : request.Verb;
+                if (string.IsNullOrEmpty(request.Target))
+                {
+                    NavigationService.For(request.Target).Navigate(request.Url,
+                                     request.Parameters.ToRequestParameters(this),
+                                     verb);
+                }
+                else
+                {
+                    NavigationService.Default().Navigate(request.Url,
+                                                         request.Parameters.ToRequestParameters(this),
+                                                         verb );
+                }
             }
         }
 

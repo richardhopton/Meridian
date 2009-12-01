@@ -20,7 +20,7 @@ namespace Meridian.SL
         }
 
         public static readonly DependencyProperty VerbProperty =
-            DependencyProperty.Register("Verb", typeof(string), typeof(Request), new PropertyMetadata(string.Empty));
+            DependencyProperty.Register("Verb", typeof(string), typeof(Request), new PropertyMetadata(RequestVerbs.Retrieve));
 
         public string Target
         {

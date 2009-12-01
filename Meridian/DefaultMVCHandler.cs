@@ -45,17 +45,18 @@ namespace Meridian
                 {
                     string controllerName = routeData.GetRequiredString("Controller");
                     IController controller = _controllerFactory.CreateController(controllerName);
-                    RequestContext context = new RequestContext(url, routeData, this, verb);
-                    
-                    if (parameters != null)
+                    if (controller != null)
                     {
-                        foreach (var item in parameters)
+                        RequestContext context = new RequestContext(url, routeData, this, verb);
+                        if (parameters != null)
                         {
-                            context.RouteData.Values.Add(item.Key, item.Value);
+                            foreach (var item in parameters)
+                            {
+                                context.RouteData.Values.Add(item.Key, item.Value);
+                            }
                         }
+                        controller.Execute(context);
                     }
-
-                    controller.Execute(context);
                 }
             }
         }
