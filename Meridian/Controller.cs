@@ -38,7 +38,7 @@
             return ViewCore(viewName, ViewData);
         }
         
-        private internal static ViewResult ViewCore(string viewName, ViewDataDictionary viewData)
+        private static ViewResult ViewCore(string viewName, ViewDataDictionary viewData)
         {
             return new ViewResult() {ViewData = viewData, ViewName = viewName};            
         }
