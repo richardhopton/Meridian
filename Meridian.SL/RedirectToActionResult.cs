@@ -23,7 +23,7 @@ namespace Meridian.SL
         public void Execute(ActionContext context)
         {
             //Possibly need to think about how we handle a redirect to action with multiple frames
-            Navigation.NavigationService.Default().Navigate(Url);
+            Navigation.NavigationService.Default.Navigate(Url);
         }
     }
 }

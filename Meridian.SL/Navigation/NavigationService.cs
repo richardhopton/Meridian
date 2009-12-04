@@ -36,7 +36,14 @@ namespace Meridian.SL.Navigation
         public static NavigationService For(string name)
         {
             IFrame frame = UIHelper.FindViewFrame(Application.Current.RootVisual, name) as Frame;
-            return frame.NavigationService;
+            if (frame != null)
+            {
+                return frame.NavigationService;
+            }
+            else
+            {
+                return NavigationService.Default;
+            }
         }
 
         public static NavigationService For(IFrame host)

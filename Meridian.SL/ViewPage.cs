@@ -54,7 +54,7 @@ namespace Meridian.SL
                 }
                 else
                 {
-                    NavigationService.Default().Navigate(request.Url,
+                    NavigationService.Default.Navigate(request.Url,
                                                          request.Parameters.ToRequestParameters(this),
                                                          verb );
                 }
