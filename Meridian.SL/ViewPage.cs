@@ -24,6 +24,16 @@ namespace Meridian.SL
 
         public ViewDataDictionary ViewData { get; set; }
 
+        public ViewPage()
+        {
+            Loaded += ViewPage_Loaded;
+        }
+
+        void ViewPage_Loaded(object sender, System.Windows.RoutedEventArgs e)
+        {
+            DataContext = this;
+        }
+
         public object Model
         {
             get
@@ -46,7 +56,7 @@ namespace Meridian.SL
             if (request != null)
             {
                 string verb = string.IsNullOrEmpty(request.Verb) ? RequestVerbs.Submit : request.Verb;
-                if (string.IsNullOrEmpty(request.Target))
+                if (!string.IsNullOrEmpty(request.Target))
                 {
                     NavigationService.For(request.Target).Navigate(request.Url,
                                      request.Parameters.ToRequestParameters(this),

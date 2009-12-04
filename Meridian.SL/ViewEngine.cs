@@ -25,6 +25,7 @@ namespace Meridian.SL
             } 
         }
 
+        //ToDo: Need to improve how we get assemblies
         private void LoadViews(Assembly assembly)
         {
             foreach (var viewType in assembly.GetTypes())
@@ -32,18 +33,23 @@ namespace Meridian.SL
                 if (typeof (ViewPage).IsAssignableFrom(viewType) 
                     && (!viewType.IsAbstract))
                 {
-                    _viewTypeCache.Add(viewType.Name, new View() {ViewType = viewType});
+                    string[] names = viewType.FullName.Split('.');
+                    string viewName = string.Format("{0}{1}", names[names.Length-2], names[names.Length - 1]);
+                    _viewTypeCache.Add(viewName, new View() {ViewType = viewType});
                 }
             }
         }
 
-        public IView GetView(string viewName)
+        public IView GetView(ControllerContext controllerContext, string viewName)
         {
             Requires.NotNullOrEmpty(viewName, "viewName");
 
-            if (_viewTypeCache.ContainsKey(viewName))
-            {
-                return _viewTypeCache[viewName];
+            string controllerName = controllerContext.RequestContext.RouteData.GetRequiredString("controller");
+            string fullViewName = string.Format("{0}{1}", controllerName, viewName);
+
+            if (_viewTypeCache.ContainsKey(fullViewName))
+            {                
+                return _viewTypeCache[fullViewName];
             }
             return null;
         }

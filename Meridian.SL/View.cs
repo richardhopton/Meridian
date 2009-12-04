@@ -11,15 +11,17 @@ namespace Meridian.SL
 
         public void Render(ViewContext context)
         {
-            UserControl page = Activator.CreateInstance(ViewType) as UserControl;
-            if (page is ViewPage)
-            {
-                var viewPage = page as ViewPage;
-                viewPage.Handler = context.RequestContext.Handler;
-                viewPage.ViewData = context.ViewData;
-                viewPage.DataContext = viewPage;
-            }
-            FrameManager.Display(context.RequestContext.Url, page);
+            Deployment.Current.Dispatcher.BeginInvoke(delegate()
+              {
+                  var page = Activator.CreateInstance(ViewType) as UserControl;
+                  if (page is ViewPage)
+                  {
+                      var viewPage = page as ViewPage;
+                      viewPage.Handler = context.RequestContext.Handler;
+                      viewPage.ViewData = context.ViewData;
+                  }
+                  FrameManager.Display(context.RequestContext.Url, page);                                                          
+              });
         }
     }
 }

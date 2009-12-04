@@ -13,6 +13,6 @@ namespace Meridian
 {
     public interface IViewEngine
     {
-        IView GetView(string viewName);
+        IView GetView(ControllerContext controllerContext, string viewName);
     }
 }

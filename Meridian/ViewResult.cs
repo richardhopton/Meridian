@@ -27,7 +27,7 @@ namespace Meridian
             {
                 ViewName = context.ActionName;
             }
-            var view = ViewEngineManager.CurrentEngine.GetView(ViewName);
+            var view = ViewEngineManager.CurrentEngine.GetView(context.ControllerContext, ViewName);
             if (view != null)
             {
                 var viewContext = new ViewContext(context.ControllerContext, ViewData);                
