@@ -45,14 +45,17 @@ namespace Meridian.SL.Navigation
             return host.NavigationService;
         }
 
-        public static NavigationService Default()
+        public static NavigationService Default
         {
-            IFrame frame = UIHelper.FindViewFrame(Application.Current.RootVisual) as Frame;
-            if (frame != null)
+            get
             {
-                return frame.NavigationService;
+                IFrame frame = UIHelper.FindViewFrame(Application.Current.RootVisual) as Frame;
+                if (frame != null)
+                {
+                    return frame.NavigationService;
+                }
+                return null;
             }
-            return null;
         }
 
         internal static Journal Journal
