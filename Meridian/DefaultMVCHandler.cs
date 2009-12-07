@@ -20,7 +20,7 @@ namespace Meridian
             Requires.NotNull(viewEngine, "viewEngine");
 
             _controllerFactory = controllerFactory;
-            ViewEngineManager.CurrentEngine = viewEngine;
+            ViewEngineManager.Current.Add(viewEngine);
         }
 
         //Retrieve
