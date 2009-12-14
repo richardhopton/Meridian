@@ -46,12 +46,12 @@ namespace Meridian.SL
             }
         }
 
-        private bool CanHandle(object parameter)
+        protected bool CanHandle(object parameter)
         {
             return true;
         }
 
-        private void Handle(Request request)
+        protected void Handle(Request request)
         {
             if (request != null)
             {

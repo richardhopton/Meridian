@@ -1,4 +1,6 @@
-﻿using System.Windows;
+﻿using System;
+using System.Collections.Generic;
+using System.Windows;
 using System.Collections.ObjectModel;
 using System.Reflection;
 
@@ -19,16 +21,39 @@ namespace Meridian.SL
                     object value = null;
                     if (element != null)
                     {
-                        var propertyInfo = element.GetType().GetProperty(parameter.Path);
-                        if (propertyInfo != null)
-                        {
-                            value = propertyInfo.GetValue(element, null);
-                        }
+                        string[] propertyPath = parameter.Path.Split(new[] {'.'}, StringSplitOptions.RemoveEmptyEntries);
+                        value = GetPropertyValue(element, propertyPath);                        
                     }
                     requestParameters.Add(parameter.ParameterName, value);
                 }                
             }
             return requestParameters;
+        }
+        
+        private object GetPropertyValue(object element, IEnumerable<string> propertyPath)
+        {
+            Requires.NotNull(element, "element");
+            Requires.NotNull(propertyPath, "propertyPath");
+
+            object propertyValue = element;
+            foreach (var s in propertyPath)
+            {
+                propertyValue = GetPropertyValue(propertyValue, s);
+            }
+            return propertyValue;
+        }
+
+        private object GetPropertyValue(object element, string property)
+        {
+            Requires.NotNull(element, "element");
+            Requires.NotNullOrEmpty(property, "property");
+
+            var propertyInfo = element.GetType().GetProperty(property);
+            if (propertyInfo != null)
+            {
+                return propertyInfo.GetValue(element, null);
+            }
+            return null;
         }
     }
 }
