@@ -42,6 +42,7 @@ namespace Meridian.SL
 
         public Request()
         {
+            SetValue(UrlProperty, Application.Current.Host.NavigationState);
             SetValue(ParametersProperty, new ParameterCollection());
         }
     }
