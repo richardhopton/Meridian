@@ -15,7 +15,11 @@ namespace Meridian.SL
             var requestParameters = new RequestParameters();
             foreach (var parameter in this)
             {
-                if (!string.IsNullOrEmpty(parameter.Path))
+                if (parameter.Value != null)
+                {
+                    requestParameters.Add(parameter.ParameterName, parameter.Value);
+                }
+                else if (!string.IsNullOrEmpty(parameter.Path))
                 {
                     var element = string.IsNullOrEmpty(parameter.ElementName) ? parent : parent.FindName(parameter.ElementName);
                     object value = null;
