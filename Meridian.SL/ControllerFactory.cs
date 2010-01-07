@@ -38,7 +38,7 @@ namespace Meridian.SL
             }
         }
 
-        public IController CreateController(string controllerName)
+        public virtual IController CreateController(string controllerName)
         {
             Requires.NotNullOrEmpty(controllerName, "controllerName");
 
