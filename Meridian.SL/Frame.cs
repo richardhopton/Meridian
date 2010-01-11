@@ -7,7 +7,7 @@ using Meridian.SL.Navigation;
 namespace Meridian.SL
 {
     public class Frame : ContentControl, IFrame, INavigate
-    {
+    {        
         private readonly NavigationService _navigationService;
 
         public Frame()
@@ -66,10 +66,14 @@ namespace Meridian.SL
 
         #region IFrame Members
 
-        public void Display(UIElement element)
+        public void Display(string url, UIElement element)
         {
             Content = null;
             Content = element;
+            if (Navigated != null)
+            {
+                Navigated(this, new NavigationEventArgs(new Uri(url, UriKind.Relative)));
+            }
         }
 
         public string GetContentTitle()
@@ -86,6 +90,8 @@ namespace Meridian.SL
         {
             get { return _navigationService; }
         }
+
+        public event EventHandler<NavigationEventArgs> Navigated;
 
         #endregion
 

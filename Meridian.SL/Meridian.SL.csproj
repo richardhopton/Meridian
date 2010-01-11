@@ -58,6 +58,7 @@
     <Compile Include="Navigation\JournalEventArgs.cs" />
     <Compile Include="Navigation\NavigationMode.cs" />
     <Compile Include="Navigation\NavigationService.cs" />
+    <Compile Include="Navigation\NavigationEventArgs.cs" />
     <Compile Include="Parameter.cs" />
     <Compile Include="ParameterCollection.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

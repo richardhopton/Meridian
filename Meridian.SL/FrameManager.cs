@@ -41,7 +41,7 @@ namespace Meridian.SL
             IFrame frame = null;
             if(_waitingFrames.TryGetValue(url, out frame))
             {
-                frame.Display(element);
+                frame.Display(url, element);
                 Remove(url);
             }
         }

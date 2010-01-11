@@ -8,15 +8,16 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Shapes;
-using Meridian.SL.Navigation;
 
-namespace Meridian.SL
+namespace Meridian.SL.Navigation
 {
-    public interface IFrame
+    public class NavigationEventArgs : EventArgs
     {
-        void Display(string url, UIElement element);
-        String GetContentTitle();
-        NavigationService NavigationService { get; }
-        event EventHandler<NavigationEventArgs> Navigated;
+        public Uri Uri { get; set; }
+
+        public NavigationEventArgs(Uri uri)
+        {
+            Uri = uri;
+        }
     }
 }
