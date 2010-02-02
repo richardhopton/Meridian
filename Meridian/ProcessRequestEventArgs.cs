@@ -15,11 +15,13 @@ namespace Meridian
     {
         public string Uri { get; set; }
         public bool Cancel { get; set; }
+        public string Verb { get; set; }
 
-        public ProcessRequestEventArgs(string uri, bool cancel)
+        public ProcessRequestEventArgs(string uri, bool cancel, string verb)
         {
             Uri = uri;
             Cancel = cancel;
+            Verb = verb;
         }
     }
 }

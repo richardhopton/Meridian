@@ -41,18 +41,21 @@ namespace Meridian
 
             if (routeData != null)
             {
-                if (ContinueProcessing(url))
+                if (ContinueProcessing(url, verb))
                 {
                     string controllerName = routeData.GetRequiredString("Controller");
                     IController controller = _controllerFactory.CreateController(controllerName);
                     if (controller != null)
                     {
-                        RequestContext context = new RequestContext(url, routeData, this, verb);
+                        var context = new RequestContext(url, routeData, this, verb);
                         if (parameters != null)
                         {
                             foreach (var item in parameters)
                             {
-                                context.RouteData.Values.Add(item.Key, item.Value);
+                                if (context.RouteData.Values.ContainsKey(item.Key))
+                                    context.RouteData.Values[item.Key] = item.Value;
+                                else
+                                    context.RouteData.Values.Add(item.Key, item.Value);
                             }
                         }
                         controller.Execute(context);
@@ -61,11 +64,11 @@ namespace Meridian
             }
         }
 
-        private bool ContinueProcessing(string url)
+        private bool ContinueProcessing(string url, string verb)
         {
             if (_processing != null)
             {
-                ProcessRequestEventArgs args = new ProcessRequestEventArgs(url, false);
+                var args = new ProcessRequestEventArgs(url, false, verb);
                 _processing(this, args);
                 return !args.Cancel;
             }
