@@ -11,5 +11,17 @@ namespace Meridian.SL
         public string Path { get; set; }
 
         public object Value { get; set; }
+
+        public Parameter()
+        {            
+        }
+
+        public Parameter(string parameterName, object value)
+        {
+            Requires.NotNullOrEmpty(parameterName, "parameterName");
+
+            ParameterName = parameterName;
+            Value = value;
+        }
     }
 }

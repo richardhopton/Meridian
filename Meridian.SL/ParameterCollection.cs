@@ -59,5 +59,12 @@ namespace Meridian.SL
             }
             return null;
         }
+
+        public void Add(string parameterName, object value)
+        {
+            Requires.NotNullOrEmpty(parameterName, "parameterName");
+            
+            Add(new Parameter(parameterName, value));
+        }
     }
 }
