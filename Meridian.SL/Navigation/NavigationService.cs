@@ -80,6 +80,12 @@ namespace Meridian.SL.Navigation
             get { return _journal.CanGoForward; }
         }
 
+        public void Navigate(Request request)
+        {
+            Requires.NotNull(request, "request");
+            Navigate(request.Url, request.Parameters.ToRequestParameters(), request.Verb);
+        }
+
         public void Navigate(string url, RequestParameters parameters, String verb)
         {
             Requires.NotNull(url, "url");

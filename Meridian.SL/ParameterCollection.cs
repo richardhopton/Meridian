@@ -8,10 +8,13 @@ namespace Meridian.SL
 {
     public class ParameterCollection : ObservableCollection<Parameter>
     {
+        public RequestParameters ToRequestParameters()
+        {
+            return ToRequestParameters(null);    
+        }
+
         public RequestParameters ToRequestParameters(FrameworkElement parent)
         {
-            Requires.NotNull(parent, "parent");
-
             var requestParameters = new RequestParameters();
             foreach (var parameter in this)
             {
@@ -19,7 +22,7 @@ namespace Meridian.SL
                 {
                     requestParameters.Add(parameter.ParameterName, parameter.Value);
                 }
-                else if (!string.IsNullOrEmpty(parameter.Path))
+                else if (!string.IsNullOrEmpty(parameter.Path) && (parent != null))
                 {
                     var element = string.IsNullOrEmpty(parameter.ElementName) ? parent : parent.FindName(parameter.ElementName);
                     object value = null;
