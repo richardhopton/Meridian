@@ -13,7 +13,8 @@ namespace Meridian.SL
         public Frame()
         {
             Loaded += Frame_Loaded;
-            _navigationService = new NavigationService(this);
+            if(!IsInDesignMode())
+                _navigationService = new NavigationService(this);
         }
 
         internal static bool IsInDesignMode()
