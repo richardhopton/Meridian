@@ -1,13 +1,6 @@
 ﻿using System;
-using System.Net;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Documents;
-using System.Windows.Ink;
-using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Animation;
-using System.Windows.Shapes;
 
 namespace Meridian.SL
 {
@@ -18,9 +11,9 @@ namespace Meridian.SL
             return FindViewFrame(parent, null /* name */ );
         }        
 
-        public static IFrame FindViewFrame(DependencyObject parent, string name)
+        public static IFrame FindViewFrame(DependencyObject parent, String name)
         {
-            for (int i = 0; i < VisualTreeHelper.GetChildrenCount(parent); i++)
+            for (Int32 i = 0; i < VisualTreeHelper.GetChildrenCount(parent); i++)
             {
                 var child = VisualTreeHelper.GetChild(parent, i);
                 if (typeof(IFrame).IsAssignableFrom(child.GetType()))
@@ -34,11 +27,11 @@ namespace Meridian.SL
             return null;
         }
 
-        private static bool IsIFrame(DependencyObject element, string name)
+        private static Boolean IsIFrame(DependencyObject element, String name)
         {
             if (typeof(IFrame).IsAssignableFrom(element.GetType()))
             {
-                if (!string.IsNullOrEmpty(name)
+                if (!String.IsNullOrEmpty(name)
                     && ((element is FrameworkElement)
                     &&((FrameworkElement)element).Name.Equals(name)))
                 {

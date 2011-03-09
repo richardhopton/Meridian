@@ -1,27 +1,19 @@
 ﻿using System;
-using System.Net;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Documents;
-using System.Windows.Ink;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Animation;
-using System.Windows.Shapes;
 using System.Collections.Generic;
+using System.Windows;
 
 namespace Meridian.SL
 {
     public static class FrameManager
     {
-        private static readonly Dictionary<string, IFrame> _waitingFrames = new Dictionary<string, IFrame>();
+        private static readonly Dictionary<String, IFrame> _waitingFrames = new Dictionary<String, IFrame>();
 
-        public static bool Remove(string url)
+        public static Boolean Remove(String url)
         {
             return _waitingFrames.Remove(url);
         }
 
-        public static void Add(string url, IFrame frame)
+        public static void Add(String url, IFrame frame)
         {
             if (_waitingFrames.ContainsKey(url))
             {
@@ -33,7 +25,7 @@ namespace Meridian.SL
             }
         }
 
-        public static void Display(string url, UIElement element)
+        public static void Display(String url, UIElement element)
         {
             Requires.NotNull(url, "url");
             Requires.NotNull(element, "element");

@@ -1,13 +1,6 @@
 ﻿using System;
-using System.Net;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Documents;
-using System.Windows.Ink;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Animation;
-using System.Windows.Shapes;
 using System.Windows.Threading;
 
 namespace Meridian.SL
@@ -15,7 +8,7 @@ namespace Meridian.SL
     public class DelegateCommand<T> : ICommand
     {
         private readonly Action<T> executeMethod = null;
-        private readonly Func<T, bool> canExecuteMethod = null;
+        private readonly Func<T, Boolean> canExecuteMethod = null;
         private readonly Dispatcher dispatcher;
 
         public DelegateCommand(Action<T> executeMethod)
@@ -23,7 +16,7 @@ namespace Meridian.SL
         {
         }
 
-        public DelegateCommand(Action<T> executeMethod, Func<T, bool> canExecuteMethod)
+        public DelegateCommand(Action<T> executeMethod, Func<T, Boolean> canExecuteMethod)
         {
             Requires.NotNull(executeMethod, "executeMethod");
             Requires.NotNull(canExecuteMethod, "canExecuteMethod");
@@ -36,7 +29,7 @@ namespace Meridian.SL
             }
         }
 
-        public bool CanExecute(T parameter)
+        public Boolean CanExecute(T parameter)
         {
             if (canExecuteMethod == null)
             {
@@ -53,14 +46,14 @@ namespace Meridian.SL
             }
         }
 
-        bool ICommand.CanExecute(object parameter)
+        Boolean ICommand.CanExecute(Object parameter)
         {
             return CanExecute((T)parameter);
         }
 
         public event EventHandler CanExecuteChanged;
 
-        void ICommand.Execute(object parameter)
+        void ICommand.Execute(Object parameter)
         {
             Execute((T)parameter);
         }

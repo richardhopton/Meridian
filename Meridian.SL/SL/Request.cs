@@ -1,35 +1,36 @@
-﻿using System.Windows;
+﻿using System;
+using System.Windows;
 
 namespace Meridian.SL
 {
     public class Request : FrameworkElement
     {
-        public string Url
+        public String Url
         {
-            get { return (string)GetValue(UrlProperty); }
+            get { return (String)GetValue(UrlProperty); }
             set { SetValue(UrlProperty, value); }
         }
 
         public static readonly DependencyProperty UrlProperty =
-            DependencyProperty.Register("Url", typeof(string), typeof(Request), new PropertyMetadata(string.Empty));
+            DependencyProperty.Register("Url", typeof(String), typeof(Request), new PropertyMetadata(String.Empty));
 
-        public string Verb
+        public String Verb
         {
-            get { return (string)GetValue(VerbProperty); }
+            get { return (String)GetValue(VerbProperty); }
             set { SetValue(VerbProperty, value); }
         }
 
         public static readonly DependencyProperty VerbProperty =
-            DependencyProperty.Register("Verb", typeof(string), typeof(Request), new PropertyMetadata(RequestVerbs.Retrieve));
+            DependencyProperty.Register("Verb", typeof(String), typeof(Request), new PropertyMetadata(RequestVerbs.Retrieve));
 
-        public string Target
+        public String Target
         {
-            get { return (string)GetValue(TargetProperty); }
+            get { return (String)GetValue(TargetProperty); }
             set { SetValue(TargetProperty, value); }
         }
         
         public static readonly DependencyProperty TargetProperty =
-            DependencyProperty.Register("Target", typeof(string), typeof(Request), new PropertyMetadata(string.Empty));
+            DependencyProperty.Register("Target", typeof(String), typeof(Request), new PropertyMetadata(String.Empty));
 
         public ParameterCollection Parameters
         {

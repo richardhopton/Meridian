@@ -1,5 +1,4 @@
 ﻿using System;
-using Meridian.Routing;
 using System.Windows;
 
 namespace Meridian.SL.Navigation
@@ -33,7 +32,7 @@ namespace Meridian.SL.Navigation
             _host = host;
         }
 
-        public static NavigationService For(string name)
+        public static NavigationService For(String name)
         {
             IFrame frame = UIHelper.FindViewFrame(Application.Current.RootVisual, name) as Frame;
             if (frame != null)
@@ -86,18 +85,18 @@ namespace Meridian.SL.Navigation
             Navigate(request.Url, request.Parameters.ToRequestParameters(), request.Verb);
         }
 
-        public void Navigate(string url, RequestParameters parameters, String verb)
+        public void Navigate(String url, RequestParameters parameters, String verb)
         {
             Requires.NotNull(url, "url");
             NavigateCore(url, parameters, verb, false);
         }
 
-        public void Navigate(string url, RequestParameters parameters)
+        public void Navigate(String url, RequestParameters parameters)
         {
             Navigate(url, parameters, RequestVerbs.Submit);
         }
 
-        public void Navigate(string url)
+        public void Navigate(String url)
         {
             Navigate(url, null, RequestVerbs.Retrieve);
         }
@@ -137,7 +136,7 @@ namespace Meridian.SL.Navigation
             }
         }
 
-        private void JournalNavigated(object sender, JournalEventArgs e)
+        private void JournalNavigated(Object sender, JournalEventArgs e)
         {
             if (!_journalIsAddingHistoryPoint)
             {

@@ -12,10 +12,10 @@ namespace Meridian.SL.Navigation
         private readonly Stack<JournalEntry> _forwardStack = new Stack<JournalEntry>();
         
         private JournalEntry _currentEntry;
-        private bool _suppressNavigationEvent;
+        private Boolean _suppressNavigationEvent;
         private EventHandler<NavigationStateChangedEventArgs> _weakRefEventHandler;
 
-        internal Journal(bool useNavigationState)
+        internal Journal(Boolean useNavigationState)
         {
             UseNavigationState = useNavigationState;
             if (useNavigationState)
@@ -34,19 +34,19 @@ namespace Meridian.SL.Navigation
             get { return _forwardStack; }
         }
 
-        internal bool UseNavigationState { get; private set; }
+        internal Boolean UseNavigationState { get; private set; }
 
         internal JournalEntry CurrentEntry
         {
             get { return _currentEntry; }
         }
 
-        internal bool CanGoBack
+        internal Boolean CanGoBack
         {
             get { return (_backStack.Count > 0); }
         }
 
-        internal bool CanGoForward
+        internal Boolean CanGoForward
         {
             get { return (_forwardStack.Count > 0); }
         }
@@ -70,12 +70,12 @@ namespace Meridian.SL.Navigation
             }
         }
 
-        internal bool CheckForDeeplinks()
+        internal Boolean CheckForDeeplinks()
         {
             if (UseNavigationState)
             {
-                string str = Application.Current.Host.NavigationState;
-                if (!string.IsNullOrEmpty(str))
+                String str = Application.Current.Host.NavigationState;
+                if (!String.IsNullOrEmpty(str))
                 {
                     AddHistoryPointIfDifferent(str);
                     return true;
@@ -84,14 +84,14 @@ namespace Meridian.SL.Navigation
             return false;
         }
 
-        private void AddHistoryPointIfDifferent(string newState)
+        private void AddHistoryPointIfDifferent(String newState)
         {
-            string b = string.Empty;
+            String b = String.Empty;
             if (CurrentEntry != null)
             {
                 b = CurrentEntry.Url;
             }
-            if (!string.Equals(newState, b, StringComparison.Ordinal))
+            if (!String.Equals(newState, b, StringComparison.Ordinal))
             {
                 _suppressNavigationEvent = true;
                 AddHistoryPoint(new JournalEntry(String.Empty, newState));
@@ -140,7 +140,7 @@ namespace Meridian.SL.Navigation
         private void InitializeNavigationState()
         {
             var thisWeak = new WeakReference(this);
-            _weakRefEventHandler = delegate(object sender, NavigationStateChangedEventArgs args)
+            _weakRefEventHandler = delegate(Object sender, NavigationStateChangedEventArgs args)
                                        {
                                            var target = thisWeak.Target as Journal;
                                            if (target != null)

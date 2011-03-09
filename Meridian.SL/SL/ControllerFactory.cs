@@ -8,7 +8,7 @@ namespace Meridian.SL
 {
     public class ControllerFactory : IControllerFactory
     {
-        private Dictionary<string, Type> _controllerTypeCache = new Dictionary<string, Type>(StringComparer.OrdinalIgnoreCase);
+        private Dictionary<String, Type> _controllerTypeCache = new Dictionary<String, Type>(StringComparer.OrdinalIgnoreCase);
 
         public ControllerFactory()
         {
@@ -38,7 +38,7 @@ namespace Meridian.SL
             }
         }
 
-        public virtual IController CreateController(string controllerName)
+        public virtual IController CreateController(String controllerName)
         {
             Requires.NotNullOrEmpty(controllerName, "controllerName");
 

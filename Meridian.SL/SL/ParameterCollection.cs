@@ -1,8 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Windows;
 using System.Collections.ObjectModel;
-using System.Reflection;
+using System.Windows;
 
 namespace Meridian.SL
 {
@@ -22,13 +21,13 @@ namespace Meridian.SL
                 {
                     requestParameters.Add(parameter.ParameterName, parameter.Value);
                 }
-                else if (!string.IsNullOrEmpty(parameter.Path) && (parent != null))
+                else if (!String.IsNullOrEmpty(parameter.Path) && (parent != null))
                 {
-                    var element = string.IsNullOrEmpty(parameter.ElementName) ? parent : parent.FindName(parameter.ElementName);
-                    object value = null;
+                    var element = String.IsNullOrEmpty(parameter.ElementName) ? parent : parent.FindName(parameter.ElementName);
+                    Object value = null;
                     if (element != null)
                     {
-                        string[] propertyPath = parameter.Path.Split(new[] {'.'}, StringSplitOptions.RemoveEmptyEntries);
+                        String[] propertyPath = parameter.Path.Split(new[] {'.'}, StringSplitOptions.RemoveEmptyEntries);
                         value = GetPropertyValue(element, propertyPath);                        
                     }
                     requestParameters.Add(parameter.ParameterName, value);
@@ -37,12 +36,12 @@ namespace Meridian.SL
             return requestParameters;
         }
         
-        private object GetPropertyValue(object element, IEnumerable<string> propertyPath)
+        private Object GetPropertyValue(Object element, IEnumerable<String> propertyPath)
         {
             Requires.NotNull(element, "element");
             Requires.NotNull(propertyPath, "propertyPath");
 
-            object propertyValue = element;
+            Object propertyValue = element;
             foreach (var s in propertyPath)
             {
                 propertyValue = GetPropertyValue(propertyValue, s);
@@ -50,7 +49,7 @@ namespace Meridian.SL
             return propertyValue;
         }
 
-        private object GetPropertyValue(object element, string property)
+        private Object GetPropertyValue(Object element, String property)
         {
             Requires.NotNull(element, "element");
             Requires.NotNullOrEmpty(property, "property");
@@ -63,7 +62,7 @@ namespace Meridian.SL
             return null;
         }
 
-        public void Add(string parameterName, object value)
+        public void Add(String parameterName, Object value)
         {
             Requires.NotNullOrEmpty(parameterName, "parameterName");
             

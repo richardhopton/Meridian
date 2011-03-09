@@ -2,8 +2,6 @@
 using System.Windows;
 using System.Windows.Controls.Primitives;
 using System.Windows.Input;
-using System.Windows.Controls;
-using System.Windows.Media;
 
 namespace Meridian.SL
 {
@@ -28,15 +26,15 @@ namespace Meridian.SL
         }
 
         public static readonly DependencyProperty CommandParameterProperty =
-            DependencyProperty.RegisterAttached("CommandParameter", typeof(object), typeof(Commands),
+            DependencyProperty.RegisterAttached("CommandParameter", typeof(Object), typeof(Commands),
             null);
 
-        public static object GetCommandParameter(ButtonBase buttonBase)
+        public static Object GetCommandParameter(ButtonBase buttonBase)
         {
             return buttonBase.GetValue(CommandParameterProperty);
         }
 
-        public static void SetCommandParameter(ButtonBase buttonBase, object value)
+        public static void SetCommandParameter(ButtonBase buttonBase, Object value)
         {
             buttonBase.SetValue(CommandParameterProperty, value);                           
         }
@@ -103,7 +101,7 @@ namespace Meridian.SL
                 }
             }
 
-            void command_CanExecuteChanged(object sender, EventArgs e)
+            void command_CanExecuteChanged(Object sender, EventArgs e)
             {
                 ButtonBase element = GetElement();
                 if (element != null)
@@ -121,11 +119,11 @@ namespace Meridian.SL
                 element.IsEnabled = command.CanExecute(element.GetValue(Commands.CommandParameterProperty));
             }
 
-            private static void element_Clicked(object sender, EventArgs e)
+            private static void element_Clicked(Object sender, EventArgs e)
             {
                 DependencyObject element = (DependencyObject)sender;
                 ICommand command = (ICommand)element.GetValue(CommandProperty);
-                object commandParameter = element.GetValue(CommandParameterProperty);
+                Object commandParameter = element.GetValue(CommandParameterProperty);
                 command.Execute(commandParameter);
             }
 

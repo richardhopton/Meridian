@@ -17,7 +17,7 @@ namespace Meridian.SL
                 _navigationService = new NavigationService(this);
         }
 
-        internal static bool IsInDesignMode()
+        internal static Boolean IsInDesignMode()
         {
             if ((Application.Current != null) && (Application.Current.GetType() != typeof(Application)))
             {
@@ -41,7 +41,7 @@ namespace Meridian.SL
         private Boolean _loaded;
         private String _deferredNavigation;
 
-        private void Frame_Loaded(object sender, RoutedEventArgs e)
+        private void Frame_Loaded(Object sender, RoutedEventArgs e)
         {
             _loaded = true;
             if (!IsInDesignMode())
@@ -67,7 +67,7 @@ namespace Meridian.SL
 
         #region IFrame Members
 
-        public void Display(string url, UIElement element)
+        public void Display(String url, UIElement element)
         {
             Content = null;
             Content = element;
@@ -77,7 +77,7 @@ namespace Meridian.SL
             }
         }
 
-        public string GetContentTitle()
+        public String GetContentTitle()
         {
             var viewPage = Content as ViewPage;
             if (viewPage != null)
@@ -108,7 +108,7 @@ namespace Meridian.SL
 
         #region INavigate Members
 
-        public bool Navigate(Uri source)
+        public Boolean Navigate(Uri source)
         {
             return Navigate(source.OriginalString);
         }

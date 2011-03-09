@@ -8,7 +8,7 @@ namespace Meridian.SL
 {
     public class ViewEngine : IViewEngine
     {
-        private Dictionary<string,View> _viewTypeCache = new Dictionary<string, View>();
+        private Dictionary<String,View> _viewTypeCache = new Dictionary<String, View>();
 
         public ViewEngine()
         {
@@ -33,19 +33,19 @@ namespace Meridian.SL
                 if (typeof (ViewPage).IsAssignableFrom(viewType) 
                     && (!viewType.IsAbstract))
                 {
-                    string[] names = viewType.FullName.Split('.');
-                    string viewName = string.Format("{0}{1}", names[names.Length-2], names[names.Length - 1]);
+                    String[] names = viewType.FullName.Split('.');
+                    String viewName = String.Format("{0}{1}", names[names.Length-2], names[names.Length - 1]);
                     _viewTypeCache.Add(viewName, new View() {ViewType = viewType});
                 }
             }
         }
 
-        public IView GetView(ControllerContext controllerContext, string viewName)
+        public IView GetView(ControllerContext controllerContext, String viewName)
         {
             Requires.NotNullOrEmpty(viewName, "viewName");
 
-            string controllerName = controllerContext.RequestContext.RouteData.GetRequiredString("controller");
-            string fullViewName = string.Format("{0}{1}", controllerName, viewName);
+            String controllerName = controllerContext.RequestContext.RouteData.GetRequiredString("controller");
+            String fullViewName = String.Format("{0}{1}", controllerName, viewName);
 
             if (_viewTypeCache.ContainsKey(fullViewName))
             {                

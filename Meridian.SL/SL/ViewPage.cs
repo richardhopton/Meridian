@@ -1,4 +1,5 @@
-﻿using System.Windows.Controls;
+﻿using System;
+using System.Windows.Controls;
 using Meridian.SL.Navigation;
 
 namespace Meridian.SL
@@ -29,12 +30,12 @@ namespace Meridian.SL
             Loaded += ViewPage_Loaded;
         }
 
-        void ViewPage_Loaded(object sender, System.Windows.RoutedEventArgs e)
+        void ViewPage_Loaded(Object sender, System.Windows.RoutedEventArgs e)
         {
             DataContext = this;
         }
 
-        public object Model
+        public Object Model
         {
             get
             {
@@ -46,7 +47,7 @@ namespace Meridian.SL
             }
         }
 
-        protected bool CanHandle(object parameter)
+        protected Boolean CanHandle(Object parameter)
         {
             return true;
         }
@@ -55,8 +56,8 @@ namespace Meridian.SL
         {
             if (request != null)
             {
-                string verb = string.IsNullOrEmpty(request.Verb) ? RequestVerbs.Submit : request.Verb;
-                if (!string.IsNullOrEmpty(request.Target))
+                String verb = String.IsNullOrEmpty(request.Verb) ? RequestVerbs.Submit : request.Verb;
+                if (!String.IsNullOrEmpty(request.Target))
                 {
                     NavigationService.For(request.Target).Navigate(request.Url,
                                      request.Parameters.ToRequestParameters(this),
@@ -71,7 +72,7 @@ namespace Meridian.SL
             }
         }
 
-        public string Title
+        public String Title
         {
             get { return JournalEntry.GetName(this); }
             set { JournalEntry.SetName(this, value); }

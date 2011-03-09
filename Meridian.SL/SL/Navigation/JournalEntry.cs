@@ -9,7 +9,7 @@ namespace Meridian.SL.Navigation
         // Fields
 
         public static readonly DependencyProperty NameProperty = DependencyProperty.RegisterAttached("Name",
-                                                                                                     typeof (string),
+                                                                                                     typeof (String),
                                                                                                      typeof (
                                                                                                          JournalEntry),
                                                                                                      new PropertyMetadata
@@ -19,16 +19,16 @@ namespace Meridian.SL.Navigation
         private String _url;
 
         // Methods
-        public JournalEntry(string name, String url)
+        public JournalEntry(String name, String url)
         {
             Requires.NotNull(url, "journalEntry");
             Name = name;
             _url = url;
         }
 
-        public string Name
+        public String Name
         {
-            get { return (string) GetValue(NameProperty); }
+            get { return (String) GetValue(NameProperty); }
             set { SetValue(NameProperty, value); }
         }
 
@@ -42,10 +42,10 @@ namespace Meridian.SL.Navigation
             }
         }
 
-        public static string GetName(DependencyObject obj)
+        public static String GetName(DependencyObject obj)
         {
             Requires.NotNull(obj, "obj");
-            return (string) obj.GetValue(NameProperty);
+            return (String) obj.GetValue(NameProperty);
         }
 
         private static void NamePropertyChanged(DependencyObject depObj, DependencyPropertyChangedEventArgs e)
@@ -60,7 +60,7 @@ namespace Meridian.SL.Navigation
             }
         }
 
-        public static void SetName(DependencyObject obj, string name)
+        public static void SetName(DependencyObject obj, String name)
         {
             Requires.NotNull(obj, "obj");
             obj.SetValue(NameProperty, name);
