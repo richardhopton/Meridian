@@ -85,7 +85,7 @@ namespace Meridian
 				List<Object> parameterValues = new List<Object>();
 				foreach (var parameter in parameters)
 				{
-					Object value = routeData.Values.TryGetValue(parameter.Name);
+					Object value = routeData.Values.GetValueOrDefault(parameter.Name);
 					if (value != null)
 					{
 						try

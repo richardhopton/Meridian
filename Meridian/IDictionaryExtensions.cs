@@ -3,15 +3,16 @@ using System.Collections.Generic;
 
 namespace Meridian
 {
-    internal static class IDictionaryExtensions
+    public static class IDictionaryExtensions
     {
-        internal static Object TryGetValue(this IDictionary<String, Object> defaults, String key)
+        public static TValue GetValueOrDefault<TKey,TValue>(this IDictionary<TKey,TValue> dict, TKey key, TValue defaultValue = default(TValue))
         {
-            if ((defaults != null) && (defaults.ContainsKey(key)))
+            TValue resultValue;
+            if (dict.TryGetValue(key, out resultValue))
             {
-                return defaults[key];
+                return resultValue;
             }
-            return null;
+            return defaultValue;
         }
     }
 }
