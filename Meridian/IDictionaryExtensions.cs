@@ -1,10 +1,11 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace Meridian
 {
     internal static class IDictionaryExtensions
     {
-        internal static object TryGetValue(this IDictionary<string, object> defaults, string key)
+        internal static Object TryGetValue(this IDictionary<String, Object> defaults, String key)
         {
             if ((defaults != null) && (defaults.ContainsKey(key)))
             {

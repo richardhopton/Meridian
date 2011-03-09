@@ -12,24 +12,24 @@ namespace Meridian.Routing
             PathSegments = pathSegments;
         }
 
-        public RouteValueDictionary Match(string virtualPath, RouteValueDictionary defaultValues)
+        public RouteValueDictionary Match(String virtualPath, RouteValueDictionary defaultValues)
         {
-            IList<string> source = RouteParser.SplitUrlToPathStrings(virtualPath);
+            IList<String> source = RouteParser.SplitUrlToPathStrings(virtualPath);
 
             var matchedValues = new RouteValueDictionary();
 
-            bool outOfRange = false;
-            for (int i = 0; i < PathSegments.Count; i++)
+            Boolean outOfRange = false;
+            for (Int32 i = 0; i < PathSegments.Count; i++)
             {
                 PathSegment segment = PathSegments[i];
                 if (source.Count <= i)
                 {
                     outOfRange = true;
                 }
-                string subString = outOfRange ? null : source[i];
+                String subString = outOfRange ? null : source[i];
                 if (segment is SeparatorPathSegment)
                 {
-                    if (!outOfRange && !string.Equals(subString, "/", StringComparison.Ordinal))
+                    if (!outOfRange && !String.Equals(subString, "/", StringComparison.Ordinal))
                     {
                         return null;
                     }
@@ -48,7 +48,7 @@ namespace Meridian.Routing
             }
             if (PathSegments.Count < source.Count)
             {
-                for (int j = PathSegments.Count; j < source.Count; j++)
+                for (Int32 j = PathSegments.Count; j < source.Count; j++)
                 {
                     if (!RouteParser.IsSeparator(source[j]))
                     {
@@ -58,7 +58,7 @@ namespace Meridian.Routing
             }
             if (defaultValues != null)
             {
-                foreach (KeyValuePair<string, object> pair in defaultValues)
+                foreach (KeyValuePair<String, Object> pair in defaultValues)
                 {
                     if (!matchedValues.ContainsKey(pair.Key))
                     {
@@ -69,13 +69,13 @@ namespace Meridian.Routing
             return matchedValues;
         }
 
-        private static bool MatchContentPathSegment(ContentPathSegment routeSegment, string requestPathSegment, IDictionary<string, object> defaultValues, IDictionary<string, object> matchedValues)
+        private static Boolean MatchContentPathSegment(ContentPathSegment routeSegment, String requestPathSegment, IDictionary<String, Object> defaultValues, IDictionary<String, Object> matchedValues)
         {
-            if (string.IsNullOrEmpty(requestPathSegment))
+            if (String.IsNullOrEmpty(requestPathSegment))
             {
                 if (routeSegment.SubSegments.Count <= 1)
                 {
-                    object segmentValue;
+                    Object segmentValue;
                     var subsegment = routeSegment.SubSegments[0] as ParameterSubSegment;
                     if (subsegment == null)
                     {
@@ -89,12 +89,12 @@ namespace Meridian.Routing
                 }
                 return false;
             }
-            int length = requestPathSegment.Length;
-            int subsegmentIndex = routeSegment.SubSegments.Count - 1;
+            Int32 length = requestPathSegment.Length;
+            Int32 subsegmentIndex = routeSegment.SubSegments.Count - 1;
             ParameterSubSegment parameterSubSegment = null;
             while (subsegmentIndex >= 0)
             {
-                int segmentLength = length;
+                Int32 segmentLength = length;
                 PathSubSegment pathSubSegment = routeSegment.SubSegments[subsegmentIndex];
                 LiteralSubSegment literalSubSegment = null;
                 if (pathSubSegment is ParameterSubSegment)
@@ -106,7 +106,7 @@ namespace Meridian.Routing
                     literalSubSegment = pathSubSegment as LiteralSubSegment;
                     if (literalSubSegment != null)
                     {
-                        int endIndex = requestPathSegment.LastIndexOf(literalSubSegment.Literal, length - 1,
+                        Int32 endIndex = requestPathSegment.LastIndexOf(literalSubSegment.Literal, length - 1,
                                                                       StringComparison.OrdinalIgnoreCase);
                         if (endIndex == -1)
                         {
@@ -122,14 +122,14 @@ namespace Meridian.Routing
                 }
                 if ((parameterSubSegment != null) && ((literalSubSegment != null) || (subsegmentIndex == 0)))
                 {
-                    int startIndex = 0;
-                    int endIndex = length;
+                    Int32 startIndex = 0;
+                    Int32 endIndex = length;
                     if (literalSubSegment != null)
                     {
                         startIndex = segmentLength + literalSubSegment.Literal.Length;
                     }
-                    string str = requestPathSegment.Substring(startIndex, endIndex-startIndex);
-                    if (string.IsNullOrEmpty(str))
+                    String str = requestPathSegment.Substring(startIndex, endIndex-startIndex);
+                    if (String.IsNullOrEmpty(str))
                     {
                         return false;
                     }

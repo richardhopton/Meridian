@@ -17,7 +17,7 @@ namespace Meridian
             set { _viewData = value; }
         }
 
-        public string ViewName { get; set; }
+        public String ViewName { get; set; }
 
         public void Execute(ActionContext context)
         {

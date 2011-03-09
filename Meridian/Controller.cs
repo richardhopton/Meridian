@@ -1,10 +1,12 @@
-﻿namespace Meridian
+﻿using System;
+
+namespace Meridian
 {
     public class Controller : ControllerBase
     {
         public override void Execute()
         {
-            string actionName = ControllerContext.RouteData.GetRequiredString("Action");
+            String actionName = ControllerContext.RouteData.GetRequiredString("Action");
 
             ActionInvoker.InvokeAction(ControllerContext, actionName);
         }
@@ -14,7 +16,7 @@
             return View(null /* viewName */, null /* model */);
         }
 
-        protected internal ViewResult View(object model)
+        protected internal ViewResult View(Object model)
         {
             return View(null /* viewName */, model);
         }
@@ -24,12 +26,12 @@
             return ViewCore(null /* viewName */, viewData);
         }
 
-        protected internal ViewResult View(string viewName)
+        protected internal ViewResult View(String viewName)
         {
             return View(viewName, null /* model */);
         }
 
-        protected internal ViewResult View(string viewName, object model)
+        protected internal ViewResult View(String viewName, Object model)
         {
             if (model != null)
             {
@@ -38,7 +40,7 @@
             return ViewCore(viewName, ViewData);
         }
         
-        private static ViewResult ViewCore(string viewName, ViewDataDictionary viewData)
+        private static ViewResult ViewCore(String viewName, ViewDataDictionary viewData)
         {
             return new ViewResult() {ViewData = viewData, ViewName = viewName};            
         }

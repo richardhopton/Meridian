@@ -1,10 +1,12 @@
-﻿namespace Meridian.Routing
+﻿using System;
+
+namespace Meridian.Routing
 {
     internal class ParameterSubSegment : PathSubSegment
     {
-        public string ParameterName { get; set; }
+        public String ParameterName { get; set; }
 
-        public ParameterSubSegment(string parameterName)
+        public ParameterSubSegment(String parameterName)
         {
             ParameterName = parameterName;
         }

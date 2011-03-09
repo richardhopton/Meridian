@@ -7,7 +7,7 @@ namespace Meridian.Routing
 {
     public class RouteCollection : Collection<RouteBase>
     {
-        private readonly Dictionary<string, RouteBase> _namedMap = new Dictionary<string, RouteBase>();
+        private readonly Dictionary<String, RouteBase> _namedMap = new Dictionary<String, RouteBase>();
 
         private static String GetFuncParameter(Expression<Func<String, String>> func)
         {
@@ -31,22 +31,22 @@ namespace Meridian.Routing
             return null;
         }
 
-        public RouteBase MapRoute(string url)
+        public RouteBase MapRoute(String url)
         {
             return MapRoute(null /* name */, url, null /* defaults */);
         }
 
-        public RouteBase MapRoute(string name, string url)
+        public RouteBase MapRoute(String name, String url)
         {
             return MapRoute(name, url, null /* defaults */);
         }
 
-        public RouteBase MapRoute(string url, params Expression<Func<String, String>>[] defaults)
+        public RouteBase MapRoute(String url, params Expression<Func<String, String>>[] defaults)
         {
             return MapRoute(null /* name */, url, defaults);
         }
 
-        public RouteBase MapRoute(string name, string url, params Expression<Func<String, String>>[] defaults)
+        public RouteBase MapRoute(String name, String url, params Expression<Func<String, String>>[] defaults)
         {
             Requires.NotNullOrEmpty(url, "url");
 
@@ -70,18 +70,18 @@ namespace Meridian.Routing
             return route;
         }
         
-        public void Add(string name, RouteBase route)
+        public void Add(String name, RouteBase route)
         {
             Requires.NotNull(route, "route");
 
             Add(route);
-            if (!string.IsNullOrEmpty(name))
+            if (!String.IsNullOrEmpty(name))
             {
                 _namedMap.Add(name, route);
             }
         }
 
-        public RouteData GetRouteData(string url)
+        public RouteData GetRouteData(String url)
         {
             Requires.NotNull(url, "url");
 

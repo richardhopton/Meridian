@@ -1,22 +1,13 @@
 ﻿using System;
-using System.Net;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Documents;
-using System.Windows.Ink;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Animation;
-using System.Windows.Shapes;
 using Meridian.Routing;
 
 namespace Meridian
 {
     public class RequestContext
     {
-        private string _url;
+        private String _url;
 
-        public string Url
+        public String Url
         {
             get { return _url; }
             set { _url = value; }
@@ -38,15 +29,15 @@ namespace Meridian
             set { _routeData = value; }
         }
 
-        private string _verb;
+        private String _verb;
 
-        public string Verb
+        public String Verb
         {
             get { return _verb; }
             set { _verb = value; }
         }
 
-        public RequestContext(string url, RouteData routeData, IMvcHandler handler, string verb)
+        public RequestContext(String url, RouteData routeData, IMvcHandler handler, String verb)
         {
             _url = url;
             _verb = verb;

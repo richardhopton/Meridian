@@ -1,10 +1,12 @@
-﻿namespace Meridian.Routing
+﻿using System;
+
+namespace Meridian.Routing
 {
     internal class LiteralSubSegment : PathSubSegment
     {
-        public string Literal { get; set; }
+        public String Literal { get; set; }
 
-        public LiteralSubSegment(string literal)
+        public LiteralSubSegment(String literal)
         {
             Literal = literal;
         }

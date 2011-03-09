@@ -15,15 +15,15 @@ namespace Meridian.Routing
             Route = route;
         }
 
-        public string GetString(string valueName)
+        public String GetString(String valueName)
         {
             Requires.NotNullOrEmpty(valueName, "valueName");
 
-            object routeValue;
+            Object routeValue;
             if (Values.TryGetValue(valueName, out routeValue))
             {
-                var str = routeValue as string;
-                if (!string.IsNullOrEmpty(str))
+                var str = routeValue as String;
+                if (!String.IsNullOrEmpty(str))
                 {
                     return str;
                 }
@@ -31,14 +31,14 @@ namespace Meridian.Routing
             return null;
         }
 
-        public string GetRequiredString(string valueName)
+        public String GetRequiredString(String valueName)
         {
             var value = GetString(valueName);
-            if (!string.IsNullOrEmpty(value))
+            if (!String.IsNullOrEmpty(value))
             {
                 return value;
             }
-            throw new InvalidOperationException(string.Format(CultureInfo.CurrentUICulture, "Missing Required String: {0}", new object[] { valueName }));
+            throw new InvalidOperationException(String.Format(CultureInfo.CurrentUICulture, "Missing Required String: {0}", new Object[] { valueName }));
         }
     }
 }

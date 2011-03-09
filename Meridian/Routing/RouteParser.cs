@@ -6,27 +6,27 @@ namespace Meridian.Routing
 {
     internal sealed class RouteParser
     {
-        public static IList<string> SplitUrlToPathStrings(string url)
+        public static IList<String> SplitUrlToPathStrings(String url)
         {
             Requires.NotNull(url, "url");
 
-            List<string> parsedUrl = new List<string>();
+            List<String> parsedUrl = new List<String>();
 
-            int index;
-            for (int i = 0; i < url.Length; i = index + 1)
+            Int32 index;
+            for (Int32 i = 0; i < url.Length; i = index + 1)
             {
                 index = url.IndexOf('/', i);
                 if (index == -1)
                 {
-                    string str = url.Substring(i);
-                    if (!string.IsNullOrEmpty(str))
+                    String str = url.Substring(i);
+                    if (!String.IsNullOrEmpty(str))
                     {
                         parsedUrl.Add(str);
                     }
                     return parsedUrl;
                 }
-                string item = url.Substring(i, index - i);
-                if (!string.IsNullOrEmpty(item))
+                String item = url.Substring(i, index - i);
+                if (!String.IsNullOrEmpty(item))
                 {
                     parsedUrl.Add(item);
                 }
@@ -35,7 +35,7 @@ namespace Meridian.Routing
             return parsedUrl;
         }
 
-        private static int IndexOfFirstOpenParameter(string segment, int startIndex)
+        private static Int32 IndexOfFirstOpenParameter(String segment, Int32 startIndex)
         {
             while (true)
             {
@@ -52,9 +52,9 @@ namespace Meridian.Routing
             }
         }
 
-        private static string GetLiteral(string segmentLiteral)
+        private static String GetLiteral(String segmentLiteral)
         {
-            string str = segmentLiteral.Replace("{{", "").Replace("}}", "");
+            String str = segmentLiteral.Replace("{{", "").Replace("}}", "");
             if (!str.Contains("{") && !str.Contains("}"))
             {
                 return segmentLiteral.Replace("{{", "{").Replace("}}", "}");
@@ -62,23 +62,23 @@ namespace Meridian.Routing
             return null;
         }
 
-        private static IList<PathSubSegment> ParseUrlSegment(string segment)
+        private static IList<PathSubSegment> ParseUrlSegment(String segment)
         {
             Requires.NotNull(segment, "segment");
 
-            string routeParameter = "routeUrl";
-            int startIndex = 0;
+            String routeParameter = "routeUrl";
+            Int32 startIndex = 0;
             List<PathSubSegment> returnList = new List<PathSubSegment>();
             
             while (startIndex < segment.Length)
             {
-                int paramIndex = IndexOfFirstOpenParameter(segment, startIndex);
+                Int32 paramIndex = IndexOfFirstOpenParameter(segment, startIndex);
                 if (paramIndex == -1)
                 {
-                    string literalSubSegment = GetLiteral(segment.Substring(startIndex));
+                    String literalSubSegment = GetLiteral(segment.Substring(startIndex));
                     if (literalSubSegment == null)
                     {                        
-                        throw new ArgumentException(string.Format(CultureInfo.CurrentUICulture, Strings.Route_MismatchedParameter, new object[] { segment }), routeParameter);
+                        throw new ArgumentException(String.Format(CultureInfo.CurrentUICulture, Strings.Route_MismatchedParameter, new Object[] { segment }), routeParameter);
                     }
                     if (literalSubSegment.Length > 0)
                     {
@@ -86,28 +86,28 @@ namespace Meridian.Routing
                     }
                     break;
                 }
-                int endIndex = segment.IndexOf('}', paramIndex + 1);
+                Int32 endIndex = segment.IndexOf('}', paramIndex + 1);
                 if (endIndex == -1)
                 {                    
-                    throw new ArgumentException(string.Format(CultureInfo.CurrentUICulture, Strings.Route_MismatchedParameter, new object[] { segment }), routeParameter);
+                    throw new ArgumentException(String.Format(CultureInfo.CurrentUICulture, Strings.Route_MismatchedParameter, new Object[] { segment }), routeParameter);
                 }
-                string literal = GetLiteral(segment.Substring(startIndex, paramIndex - startIndex));
+                String literal = GetLiteral(segment.Substring(startIndex, paramIndex - startIndex));
                 if (literal == null)
                 {
-                    throw new ArgumentException(string.Format(CultureInfo.CurrentUICulture, Strings.Route_MismatchedParameter, new object[] { segment }), routeParameter);
+                    throw new ArgumentException(String.Format(CultureInfo.CurrentUICulture, Strings.Route_MismatchedParameter, new Object[] { segment }), routeParameter);
                 }
                 if (literal.Length > 0)
                 {
                     returnList.Add(new LiteralSubSegment(literal));
                 }
-                string parameterName = segment.Substring(paramIndex + 1, (endIndex - paramIndex) - 1);
+                String parameterName = segment.Substring(paramIndex + 1, (endIndex - paramIndex) - 1);
                 returnList.Add(new ParameterSubSegment(parameterName));
                 startIndex = endIndex + 1;
             }
             return returnList;
         }
 
-        public static IList<PathSegment> SplitUrlToPathSegments(IList<string> urlParts)
+        public static IList<PathSegment> SplitUrlToPathSegments(IList<String> urlParts)
         {
             Requires.NotNull(urlParts, "urlParts");
 
@@ -128,22 +128,22 @@ namespace Meridian.Routing
             return returnList;
         }
 
-        internal static bool IsSeparator(string value)
+        internal static Boolean IsSeparator(String value)
         {
-            return string.Equals(value, "/", StringComparison.Ordinal);
+            return String.Equals(value, "/", StringComparison.Ordinal);
         }
 
-        public static ParsedRoute Parse(string routeUrl)
+        public static ParsedRoute Parse(String routeUrl)
         {
             if (routeUrl == null)
             {
-                routeUrl = string.Empty;
+                routeUrl = String.Empty;
             }
             if ((routeUrl.StartsWith("~", StringComparison.Ordinal) || routeUrl.StartsWith("/", StringComparison.Ordinal)) || (routeUrl.IndexOf('?') != -1))
             {
                 throw new ArgumentException("Invalid Route Url", "routeUrl");
             }
-            IList<string> pathSegments = SplitUrlToPathStrings(routeUrl);
+            IList<String> pathSegments = SplitUrlToPathStrings(routeUrl);
             return new ParsedRoute(SplitUrlToPathSegments(pathSegments));
         }
     }

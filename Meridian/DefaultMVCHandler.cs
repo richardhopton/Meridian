@@ -1,4 +1,5 @@
-﻿using Meridian.Routing;
+﻿using System;
+using Meridian.Routing;
 
 namespace Meridian
 {
@@ -24,18 +25,18 @@ namespace Meridian
         }
 
         //Retrieve
-        public void ProcessRequest(string url)
+        public void ProcessRequest(String url)
         {
             ProcessRequest(url, null, RequestVerbs.Retrieve);
         }
 
         //Submit
-        public void ProcessRequest(string url, RequestParameters parameters)
+        public void ProcessRequest(String url, RequestParameters parameters)
         {
             ProcessRequest(url, parameters, RequestVerbs.Submit);
         }
         
-        public void ProcessRequest(string url, RequestParameters parameters, string verb)
+        public void ProcessRequest(String url, RequestParameters parameters, String verb)
         {
             RouteData routeData = RouteTable.Routes.GetRouteData(url);
 
@@ -43,7 +44,7 @@ namespace Meridian
             {
                 if (ContinueProcessing(url, verb))
                 {
-                    string controllerName = routeData.GetRequiredString("Controller");
+                    String controllerName = routeData.GetRequiredString("Controller");
                     IController controller = _controllerFactory.CreateController(controllerName);
                     if (controller != null)
                     {
@@ -64,7 +65,7 @@ namespace Meridian
             }
         }
 
-        private bool ContinueProcessing(string url, string verb)
+        private Boolean ContinueProcessing(String url, String verb)
         {
             if (_processing != null)
             {

@@ -1,7 +1,9 @@
-﻿namespace Meridian.Routing
+﻿using System;
+
+namespace Meridian.Routing
 {
     public abstract class RouteBase
     {
-        public abstract RouteData GetRouteData(string url);
+        public abstract RouteData GetRouteData(String url);
     }
 }

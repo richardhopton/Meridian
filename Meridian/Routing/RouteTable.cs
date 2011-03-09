@@ -1,6 +1,8 @@
-﻿namespace Meridian.Routing
+﻿using System;
+
+namespace Meridian.Routing
 {
-    public class RouteTable
+    public static class RouteTable
     {
         private static RouteCollection _routes = new RouteCollection();
         

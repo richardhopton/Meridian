@@ -8,9 +8,9 @@ namespace Meridian.Routing
     {
         private ParsedRoute _parsedRoute;
 
-        private string _url = string.Empty;
+        private String _url = String.Empty;
 
-        public string Url
+        public String Url
         {
             get { return _url; }
             set
@@ -22,29 +22,29 @@ namespace Meridian.Routing
 
         public RouteValueDictionary Defaults { get; set; }
       
-        private RouteValueDictionary GetQueryStringValues(string queryString)
+        private RouteValueDictionary GetQueryStringValues(String queryString)
         {
             Requires.NotNullOrEmpty(queryString, "queryString");
 
-            string[] values = queryString.Split(new []{'&'}, StringSplitOptions.RemoveEmptyEntries);
+            String[] values = queryString.Split(new []{'&'}, StringSplitOptions.RemoveEmptyEntries);
             RouteValueDictionary queryValues = new RouteValueDictionary();            
             foreach (var queryValue in values)
             {
-                string key = queryValue.Substring(0,queryValue.IndexOf('='));
-                string value = queryValue.Substring(queryValue.IndexOf('=')+1);
+                String key = queryValue.Substring(0,queryValue.IndexOf('='));
+                String value = queryValue.Substring(queryValue.IndexOf('=')+1);
                 queryValues.Add(key, value);
             }
             return queryValues;
         }
 
-        public override RouteData GetRouteData(string url)
+        public override RouteData GetRouteData(String url)
         {
-            string virtualPath = url;
+            String virtualPath = url;
             if(virtualPath.StartsWith("/"))
             {
                 virtualPath = virtualPath.Remove(0,1);
             }
-            string queryString = null;
+            String queryString = null;
             if (virtualPath.Contains('?'))
             {
                 queryString = virtualPath.Substring(virtualPath.IndexOf('?') + 1);
@@ -57,7 +57,7 @@ namespace Meridian.Routing
             }
             RouteData data = new RouteData(this);
             
-            foreach (KeyValuePair<string, object> valuePair in values)
+            foreach (KeyValuePair<String, Object> valuePair in values)
             {
                 data.Values.Add(valuePair.Key, valuePair.Value);
             }
