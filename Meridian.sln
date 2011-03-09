@@ -1,6 +1,6 @@
 ﻿
-Microsoft Visual Studio Solution File, Format Version 10.00
-# Visual Studio 2008
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Meridian.SL", "Meridian.SL\Meridian.SL.csproj", "{FB3D5690-15CF-4174-A54C-5843CBD20C3F}"
 EndProject
 Global
