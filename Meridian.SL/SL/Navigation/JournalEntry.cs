@@ -8,13 +8,7 @@ namespace Meridian.SL.Navigation
     {
         // Fields
 
-        public static readonly DependencyProperty NameProperty = DependencyProperty.RegisterAttached("Name",
-                                                                                                     typeof (String),
-                                                                                                     typeof (
-                                                                                                         JournalEntry),
-                                                                                                     new PropertyMetadata
-                                                                                                         (new PropertyChangedCallback
-                                                                                                              (NamePropertyChanged)));
+        public static readonly DependencyProperty NameProperty = DependencyProperty.RegisterAttached("Name", typeof(String), typeof(JournalEntry), new PropertyMetadata(new PropertyChangedCallback(NamePropertyChanged)));
 
         private String _url;
 
