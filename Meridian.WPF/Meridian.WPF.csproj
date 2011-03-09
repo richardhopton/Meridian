@@ -1,0 +1,191 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{112EBD5C-A714-4751-9860-78D9FD53A45C}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Meridian.WPF</RootNamespace>
+    <AssemblyName>Meridian.WPF</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+    <Reference Include="WindowsBase" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="..\Meridian\AcceptVerbsAttribute.cs">
+      <Link>Core\AcceptVerbsAttribute.cs</Link>
+    </Compile>
+    <Compile Include="..\Meridian\ActionContext.cs">
+      <Link>Core\ActionContext.cs</Link>
+    </Compile>
+    <Compile Include="..\Meridian\ActionResultEventArgs.cs">
+      <Link>Core\ActionResultEventArgs.cs</Link>
+    </Compile>
+    <Compile Include="..\Meridian\AsyncController.cs">
+      <Link>Core\AsyncController.cs</Link>
+    </Compile>
+    <Compile Include="..\Meridian\Controller.cs">
+      <Link>Core\Controller.cs</Link>
+    </Compile>
+    <Compile Include="..\Meridian\ControllerBase.cs">
+      <Link>Core\ControllerBase.cs</Link>
+    </Compile>
+    <Compile Include="..\Meridian\ControllerContext.cs">
+      <Link>Core\ControllerContext.cs</Link>
+    </Compile>
+    <Compile Include="..\Meridian\DefaultActionInvoker.cs">
+      <Link>Core\DefaultActionInvoker.cs</Link>
+    </Compile>
+    <Compile Include="..\Meridian\DefaultMVCHandler.cs">
+      <Link>Core\DefaultMVCHandler.cs</Link>
+    </Compile>
+    <Compile Include="..\Meridian\IActionInvoker.cs">
+      <Link>Core\IActionInvoker.cs</Link>
+    </Compile>
+    <Compile Include="..\Meridian\IActionResult.cs">
+      <Link>Core\IActionResult.cs</Link>
+    </Compile>
+    <Compile Include="..\Meridian\IAsyncController.cs">
+      <Link>Core\IAsyncController.cs</Link>
+    </Compile>
+    <Compile Include="..\Meridian\IController.cs">
+      <Link>Core\IController.cs</Link>
+    </Compile>
+    <Compile Include="..\Meridian\IControllerFactory.cs">
+      <Link>Core\IControllerFactory.cs</Link>
+    </Compile>
+    <Compile Include="..\Meridian\IDictionaryExtensions.cs">
+      <Link>Core\IDictionaryExtensions.cs</Link>
+    </Compile>
+    <Compile Include="..\Meridian\IMVCHandler.cs">
+      <Link>Core\IMVCHandler.cs</Link>
+    </Compile>
+    <Compile Include="..\Meridian\IView.cs">
+      <Link>Core\IView.cs</Link>
+    </Compile>
+    <Compile Include="..\Meridian\IViewEngine.cs">
+      <Link>Core\IViewEngine.cs</Link>
+    </Compile>
+    <Compile Include="..\Meridian\ProcessRequestEventArgs.cs">
+      <Link>Core\ProcessRequestEventArgs.cs</Link>
+    </Compile>
+    <Compile Include="..\Meridian\ProcessRequestEventHandler.cs">
+      <Link>Core\ProcessRequestEventHandler.cs</Link>
+    </Compile>
+    <Compile Include="..\Meridian\RequestContext.cs">
+      <Link>Core\RequestContext.cs</Link>
+    </Compile>
+    <Compile Include="..\Meridian\RequestParameters.cs">
+      <Link>Core\RequestParameters.cs</Link>
+    </Compile>
+    <Compile Include="..\Meridian\RequestVerbs.cs">
+      <Link>Core\RequestVerbs.cs</Link>
+    </Compile>
+    <Compile Include="..\Meridian\Requires.cs">
+      <Link>Core\Requires.cs</Link>
+    </Compile>
+    <Compile Include="..\Meridian\Routing\ContentPathSegment.cs">
+      <Link>Core\Routing\ContentPathSegment.cs</Link>
+    </Compile>
+    <Compile Include="..\Meridian\Routing\LiteralSubSegment.cs">
+      <Link>Core\Routing\LiteralSubSegment.cs</Link>
+    </Compile>
+    <Compile Include="..\Meridian\Routing\ParameterSubSegment.cs">
+      <Link>Core\Routing\ParameterSubSegment.cs</Link>
+    </Compile>
+    <Compile Include="..\Meridian\Routing\ParsedRoute.cs">
+      <Link>Core\Routing\ParsedRoute.cs</Link>
+    </Compile>
+    <Compile Include="..\Meridian\Routing\PathSegment.cs">
+      <Link>Core\Routing\PathSegment.cs</Link>
+    </Compile>
+    <Compile Include="..\Meridian\Routing\PathSubSegment.cs">
+      <Link>Core\Routing\PathSubSegment.cs</Link>
+    </Compile>
+    <Compile Include="..\Meridian\Routing\Route.cs">
+      <Link>Core\Routing\Route.cs</Link>
+    </Compile>
+    <Compile Include="..\Meridian\Routing\RouteBase.cs">
+      <Link>Core\Routing\RouteBase.cs</Link>
+    </Compile>
+    <Compile Include="..\Meridian\Routing\RouteCollection.cs">
+      <Link>Core\Routing\RouteCollection.cs</Link>
+    </Compile>
+    <Compile Include="..\Meridian\Routing\RouteData.cs">
+      <Link>Core\Routing\RouteData.cs</Link>
+    </Compile>
+    <Compile Include="..\Meridian\Routing\RouteParser.cs">
+      <Link>Core\Routing\RouteParser.cs</Link>
+    </Compile>
+    <Compile Include="..\Meridian\Routing\RouteTable.cs">
+      <Link>Core\Routing\RouteTable.cs</Link>
+    </Compile>
+    <Compile Include="..\Meridian\Routing\RouteValueDictionary.cs">
+      <Link>Core\Routing\RouteValueDictionary.cs</Link>
+    </Compile>
+    <Compile Include="..\Meridian\Routing\SeparatorPathSegment.cs">
+      <Link>Core\Routing\SeparatorPathSegment.cs</Link>
+    </Compile>
+    <Compile Include="..\Meridian\Strings.Designer.cs">
+      <Link>Core\Strings.Designer.cs</Link>
+      <DependentUpon>Strings.resx</DependentUpon>
+    </Compile>
+    <Compile Include="..\Meridian\ViewContext.cs">
+      <Link>Core\ViewContext.cs</Link>
+    </Compile>
+    <Compile Include="..\Meridian\ViewDataDictionary.cs">
+      <Link>Core\ViewDataDictionary.cs</Link>
+    </Compile>
+    <Compile Include="..\Meridian\ViewEngineManager.cs">
+      <Link>Core\ViewEngineManager.cs</Link>
+    </Compile>
+    <Compile Include="..\Meridian\ViewResult.cs">
+      <Link>Core\ViewResult.cs</Link>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="..\Meridian\Strings.resx">
+      <Link>Core\Strings.resx</Link>
+    </EmbeddedResource>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
